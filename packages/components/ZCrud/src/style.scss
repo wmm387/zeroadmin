@@ -1,0 +1,131 @@
+.z-crud-container {
+  // * full-table-card 占满main容器的表格页面样式
+  .z-crud-full-table-card {
+    height: calc(100vh - 120px);
+  }
+  // * table-card 表格页面样式
+  .z-crud-table-card {
+    height: 100%;
+  }
+
+  .z-crud-full-table-card,
+  .z-crud-table-card {
+    min-height: 700px;
+    .el-card__body {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      height: 100%;
+      padding: 16px;
+    }
+
+    // table-search 表格搜索样式
+    .table-search {
+      display: flex;
+      padding: 18px 18px 0;
+      margin-bottom: 0.75rem;
+      background: #f7f8fa;
+
+      .el-form {
+        flex: 1;
+        .el-form-item {
+          .el-input {
+            width: 220px;
+          }
+          .el-select {
+            width: 220px;
+          }
+          .el-date-editor--datetimerange,
+          .el-date-editor--daterange {
+            width: 380px;
+          }
+
+          // 去除时间选择器上下 padding
+          .el-range-editor.el-input__wrapper {
+            padding: 0 10px;
+          }
+        }
+      }
+    }
+
+    // 表格 header 样式
+    .table-header {
+      display: flex;
+      .header-button-lf {
+        float: left;
+      }
+      .header-button-ri {
+        float: right;
+      }
+      .el-button {
+        margin-bottom: 0.75rem;
+      }
+    }
+
+    // el-table 表格样式
+    .el-table {
+      flex: 1;
+
+      .el-table__row {
+        height: 45px;
+        font-size: 14px;
+      }
+
+      // 解决表格数据为空时样式不居中问题
+      .el-table__empty-block {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        .table-empty {
+          line-height: 30px;
+        }
+      }
+
+      // table 中 image 图片样式
+      .table-image {
+        width: 50px;
+        height: 50px;
+      }
+
+      .table-tag {
+        margin: 0 5px 5px 0;
+        &:last-child {
+          margin: 0 5px 0 0;
+        }
+      }
+    }
+
+    .pagination {
+      margin-top: 1rem;
+    }
+  }
+}
+
+.dark .z-crud-container {
+  .table-search {
+    background: #262727;
+  }
+}
+
+.z-crud-full-table-card,
+.z-crud-table-card,
+.z-table {
+  .el-table__header {
+    tr,
+    th {
+      background-color: #f7f8fa !important;
+    }
+  }
+}
+
+.dark .z-crud-full-table-card,
+.dark .z-crud-table-card,
+.dark .z-table {
+  .el-table__header {
+    tr,
+    th {
+      background-color: #262727 !important;
+    }
+  }
+}
