@@ -37,17 +37,16 @@ export const toast = ((message: string, options = {}) => {
     message,
   })
 }) as ToastMessage
-  ;['success', 'warning', 'info', 'error'].forEach(key => {
-  const defaultMessage
-      = key === 'success' ? '操作成功' : key === 'error' ? '操作失败' : ''
-  toast[key] = (message = defaultMessage, options = {}) =>
-    toast(message, { ...options, type: key })
+
+['success', 'warning', 'info', 'error'].forEach(key => {
+  const defaultMessage = key === 'success' ? '操作成功' : key === 'error' ? '操作失败' : ''
+  toast[key] = (message = defaultMessage, options = {}) => toast(message, { ...options, type: key })
 })
 
 /**
  * alert
- * @param message
- * @param options {Object}
+ * @param {string} message
+ * @param {object} options
  * @param options.title
  * @param options.icon
  * @param options.showCancelButton

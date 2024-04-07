@@ -6,7 +6,7 @@ export const hasOwn = (
   key: string | symbol,
 ): key is keyof typeof val => Object.prototype.hasOwnProperty.call(val, key)
 
-// 获取vue全局属性
+/** 获取vue全局属性 */
 export const useGlobal = () => {
   const {
     appContext: {
@@ -33,13 +33,14 @@ export const assignHas = (object: any, ...otherArgs: any[]) => {
   })
 }
 
-// 隐藏手机号中间4位
+/** 隐藏手机号中间4位 */
 export const hidePhoneNumber = (number: string) => {
   if (number) {
     return number.replace(/(\d{3})\d{4}(\d{4})/, '$1****$2')
   }
 }
 
+/** 选项转MAP */
 export const option2Map = (arr: any[], labelField = 'label', valueField = 'value') => {
   const obj = {}
   arr.forEach(item => {
@@ -51,7 +52,7 @@ export const option2Map = (arr: any[], labelField = 'label', valueField = 'value
   return obj
 }
 
-// 检测设备类型(手机返回true,反之)
+/** 检测设备类型(手机返回true,反之) */
 export const deviceDetection = () => {
   const sUserAgent: { match } = navigator.userAgent.toLowerCase()
   // const bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
@@ -82,10 +83,22 @@ export function uuid() {
   })
 }
 
+/**
+ * 浮点转百分比
+ * @param float 浮点数字
+ * @param fractionDigits 保留小数位数
+ * @returns {string}
+ */
 export function float2Percent(float: number, fractionDigits = 2) {
   return `${(float * 100).toFixed(fractionDigits)}%`
 }
 
+/**
+ * 去除字符串两端的指定字符
+ * @param str 字符串
+ * @param chars 指定字符
+ * @returns {string}
+ */
 export function trim(str: string, chars = ' ') {
   // 构造正则表达式，匹配开头和结尾的指定字符
   const pattern = new RegExp(`^[${chars}]+|[${chars}]+$`, 'g')
@@ -93,14 +106,17 @@ export function trim(str: string, chars = ' ') {
   return str.replace(pattern, '')
 }
 
-// 睡眠,毫秒
+/**
+ * 睡眠
+ * @param ms 毫秒
+ */
 export function sleep(ms) {
   return new Promise(resolve => {
     return setTimeout(resolve, ms)
   })
 }
 
-// 格式化下拉框选择项
+/** 格式化下拉框选择项 */
 export const formatSelectOptions = (list: Recordable[], labelField = 'name', valueField = 'id') => {
   return list.map(item => ({
     label: get(item, labelField),
@@ -108,7 +124,11 @@ export const formatSelectOptions = (list: Recordable[], labelField = 'name', val
   }))
 }
 
-// 根据图片地址获取图片大小
+/**
+ * 根据图片地址获取图片大小
+ * @param src 图片地址
+ * @returns {Promise<{width: number, height: number}>}
+ */
 export const getImageWidthHeight: (src: string) => Promise<{ width: number, height: number }> = src => {
   return new Promise(resolve => {
     const img = new Image()
@@ -120,4 +140,44 @@ export const getImageWidthHeight: (src: string) => Promise<{ width: number, heig
       })
     }
   })
+}
+
+/**
+ * 获取音频时长
+ * @param url 音频地址
+ * @returns {Promise<number>}
+ */
+export async function getAudioTime(url: string): Promise<number> {
+  return new Promise((resolve, reject) => {
+    const audioElement = new Audio(url)
+    audioElement.onloadedmetadata = () => {
+      resolve(audioElement.duration)
+    }
+    audioElement.onerror = (error) => {
+      reject(error)
+    }
+  })
+}
+
+/**
+ * 1024的幂次方
+ * @param {number} num
+ * @returns {number}
+ */
+export const pow1024 = (num: number) => {
+  return 1024 ** num
+}
+
+/**
+ * 格式化文件大小
+ * @param {number} size
+ * @returns {string}
+ */
+export const formatFileSize = (size: number) => {
+  if (!size) return '-'
+  if (size < pow1024(1)) return `${size} B`
+  if (size < pow1024(2)) return `${(size / pow1024(1)).toFixed(2)} KB`
+  if (size < pow1024(3)) return `${(size / pow1024(2)).toFixed(2)} MB`
+  if (size < pow1024(4)) return `${(size / pow1024(3)).toFixed(2)} GB`
+  return `${(size / pow1024(4)).toFixed(2)} TB`
 }

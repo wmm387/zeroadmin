@@ -1,41 +1,70 @@
 import dayjs from 'dayjs'
-import { el } from 'element-plus/es/locales.mjs'
 
 export const dateUtil = dayjs
 
-// 获取今天日期字符串
+/**
+ * 获取今天日期字符串
+ * @param format 格式化字符串,默认YYYY-MM-DD
+ * @returns  {string}
+ */
 export function today(format = 'YYYY-MM-DD') {
   return dayjs().format(format)
 }
 
-// 获取昨天日期字符串
+/**
+ * 获取昨天日期字符串
+ * @param format 格式化字符串,默认YYYY-MM-DD
+ * @returns  {string}
+ */
 export function yesterday(format = 'YYYY-MM-DD') {
   return dayjs().subtract(1, 'day').format(format)
 }
 
-// 获取当前时间字符串
+/**
+ * 获取当前时间字符串
+ * @returns {string} 2024-01-01 12:00:00
+ */
 export const now = () => {
   return dayjs().format('YYYY-MM-DD HH:mm:ss')
 }
 
-// 获取日期字符串
+/**
+ * 获取日期字符串
+ * @param date dayjs.ConfigType
+ * @param format 格式化字符串,默认YYYY-MM-DD
+ * @returns {string}
+ */
 export const date = (date: dayjs.ConfigType, format = 'YYYY-MM-DD'): string => {
   return date ? dayjs(date).format(format) : '--'
 }
 
-// 获取时间字符串
+/**
+ * 获取时间字符串
+ * @param date dayjs.ConfigType
+ * @param format 格式化字符串,默认YYYY-MM-DD HH:mm:ss
+ * @returns  {string}
+ */
 export const time = (date: dayjs.ConfigType, format = 'YYYY-MM-DD HH:mm:ss'): string => {
   if (date) return dayjs(date).format(format)
   return '--'
 }
 
+/**
+ * 获取时间格式化字符串
+ * @param time 是否需要时间
+ * @returns  {string} ['YYYY-MM-DD 00:00:00', 'YYYY-MM-DD 23:59:59' ] || ['YYYY-MM-DD', 'YYYY-MM-DD']
+ */
 export const timesFormats = (time?: boolean) => {
   const format1 = time ? 'YYYY-MM-DD 00:00:00' : 'YYYY-MM-DD'
   const format2 = time ? 'YYYY-MM-DD 23:59:59' : 'YYYY-MM-DD'
   return [format1, format2]
 }
 
-// 今天日期数组
+/**
+ * 今天日期数组
+ * @param time 是否需要时间
+ * @returns {string}
+ */
 export const todays = (time?: boolean) => {
   const formats = timesFormats(time)
   return [
@@ -44,7 +73,11 @@ export const todays = (time?: boolean) => {
   ]
 }
 
-// 获取最近7天日期数组
+/**
+ * 获取前7天日期数组
+ * @param time 是否需要时间
+ * @returns {string} ['2024-01-01 00:00:00', '2024-01-01 23:59:59' ] || ['2024-01-01', '2024-01-01']
+ */
 export const getBefore7Days = (time?: boolean) => {
   const formats = timesFormats(time)
   return [
@@ -53,7 +86,11 @@ export const getBefore7Days = (time?: boolean) => {
   ]
 }
 
-// 获取最近7天日期数组
+/**
+ * 获取近7天日期数组
+ * @param time 是否需要时间
+ * @returns {string} ['2024-01-01 00:00:00', '2024-01-01 23:59:59' ] || ['2024-01-01', '2024-01-01']
+ */
 export const getCurrent7Days = (time?: boolean) => {
   const formats = timesFormats(time)
   return [
@@ -62,7 +99,11 @@ export const getCurrent7Days = (time?: boolean) => {
   ]
 }
 
-// 获取周起始日
+/**
+ * 获取周起始日
+ * @param time 是否需要时间
+ * @returns {string} '2024-01-01 00:00:00' || '2024-01-01'
+ */
 export const weekStartDay = (time?: boolean) => {
   const today = dayjs()
   let weekDay = today
@@ -73,7 +114,12 @@ export const weekStartDay = (time?: boolean) => {
   return weekDay.day(1).format(time ? 'YYYY-MM-DD 00:00:00' : 'YYYY-MM-DD')
 }
 
-// 格式化秒数
+/**
+ * 格式化秒数
+ * @param value 秒数
+ * @param fractionDigits 保留小数位数
+ * @returns {string} '00:00'
+ */
 export const formatSeconds = (value, fractionDigits?: number) => {
   let secondTime = value // 秒
   let minuteTime = 0 // 分
