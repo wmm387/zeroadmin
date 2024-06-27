@@ -9,6 +9,7 @@ declare module 'vue' {
     BaseRadio: typeof import('@wmm387/zeroadmin')['BaseRadio']
     BaseSelect: typeof import('@wmm387/zeroadmin')['BaseSelect']
     DateRangePickerWithQuick: typeof import('@wmm387/zeroadmin')['DateRangePickerWithQuick']
+    EmojiPicker: typeof import('@wmm387/zeroadmin')['EmojiPicker']
     FuzzyOrMatchInput: typeof import('@wmm387/zeroadmin')['FuzzyOrMatchInput']
     NumberInput: typeof import('@wmm387/zeroadmin')['NumberInput']
     TagInput: typeof import('@wmm387/zeroadmin')['TagInput']
