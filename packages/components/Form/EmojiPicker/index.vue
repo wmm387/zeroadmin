@@ -82,7 +82,7 @@ const change = (emoji: Emoji.EmojiItem) => {
 </script>
 
 <template>
-  <div ref="emojiRel" size-full>
+  <div ref="emojiRel" h-full>
     <div rel inline-flex>
       <div
         class="cursor-pointer text-5 flex-sc"
