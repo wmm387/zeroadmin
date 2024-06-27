@@ -1,6 +1,6 @@
 import type { Component } from 'vue'
 import { ElInput } from 'element-plus'
-import { BaseSelect, NumberInput, TrueFalseSwitch } from '../../Form'
+import { BaseRadio, BaseSelect, NumberInput, TrueFalseSwitch } from '../../Form'
 import type { TableColumnEditComponentType } from './types/component'
 
 const componentMap = new Map<TableColumnEditComponentType, Component>()
@@ -11,6 +11,7 @@ componentMap.set('numberInput', NumberInput)
 componentMap.set('select', BaseSelect)
 componentMap.set('trueFalseSwitch', TrueFalseSwitch)
 componentMap.set('onOffSwitch', TrueFalseSwitch)
+componentMap.set('radio', BaseRadio)
 
 export function add(compName: TableColumnEditComponentType, component: Component) {
   componentMap.set(compName, component)

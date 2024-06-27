@@ -46,7 +46,7 @@ const oldVal = ref()
 const always = computed(() => {
   if (isDef(column.edit?.always)) {
     return column.edit.always
-  } else if (['trueFalseSwitch', 'onOffSwitch'].includes(column.edit.component)) {
+  } else if (['trueFalseSwitch', 'onOffSwitch', 'radio'].includes(column.edit.component)) {
     return true
   } else {
     return false
@@ -66,8 +66,12 @@ const Comp = computed(() => componentMap.get(column.edit.component))
 
 const getCompAttr = () => {
   const attrs: Recordable = {}
-  if (['input', 'numberInput', 'select'].includes(column.edit.component)) {
+  if (['input', 'numberInput', 'select', 'radio'].includes(column.edit.component)) {
     attrs.size = 'small'
+  }
+  if (column.edit.component === 'radio') {
+    attrs.size = 'small'
+    attrs.button = true
   }
   if (column.edit.component === 'onOffSwitch') {
     attrs.onOff = true
