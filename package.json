@@ -1,7 +1,7 @@
 {
   "name": "@wmm387/zeroadmin",
   "type": "module",
-  "version": "0.0.22",
+  "version": "0.0.23",
   "author": "Zero (https://github.com/wmm387)",
   "keywords": [
     "@wmm387/zeroadmin",
@@ -29,9 +29,15 @@
   "style": "dist/style.css",
   "typesVersions": {
     "*": {
-      ".": ["./dist/types/index.d.ts"],
-      "utils": ["./dist/types/utils.d.ts"],
-      "volar": ["./volar.d.ts"]
+      ".": [
+        "./dist/types/index.d.ts"
+      ],
+      "utils": [
+        "./dist/types/utils.d.ts"
+      ],
+      "volar": [
+        "./volar.d.ts"
+      ]
     }
   },
   "files": [
@@ -41,6 +47,7 @@
   "scripts": {
     "d": "vite",
     "b": "vite build && vue-tsc -p tsconfig.lib.json",
+    "rel": "bumpp --no-push",
     "tsc": "tsc --noEmit && vue-tsc --noEmit --skipLibCheck"
   },
   "peerDependencies": {
@@ -60,6 +67,7 @@
     "@vitejs/plugin-vue-jsx": "^3.1.0",
     "@vueuse/core": "^10.9.0",
     "@wmm387/unocss-preset": "^0.0.2",
+    "bumpp": "^9.4.1",
     "copy-to-clipboard": "^3.3.3",
     "dayjs": "^1.11.10",
     "eslint": "^8.57.0",
