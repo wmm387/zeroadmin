@@ -1,6 +1,6 @@
 import type { ComputedRef } from 'vue'
 import { computed, reactive, ref, unref } from 'vue'
-import { isBoolean } from '@pkg/utils'
+import { isBoolean, isDefAndNotNull } from '@pkg/utils'
 import type { PaginationProps, TablePropsType } from '../types'
 
 const defaultPageSize = 20
@@ -34,9 +34,9 @@ export function usePagination(propsRef: ComputedRef<TablePropsType>) {
   })
 
   const setPagination = (info: Partial<PaginationProps>) => {
-    info?.page && (pagination.page = info.page)
-    info?.pageSize && (pagination.pageSize = info.pageSize)
-    info?.total && (pagination.total = info.total)
+    isDefAndNotNull(info?.page) && (pagination.page = info.page)
+    isDefAndNotNull(info?.pageSize) && (pagination.pageSize = info.pageSize)
+    isDefAndNotNull(info?.total) && (pagination.total = info.total)
   }
 
   return {

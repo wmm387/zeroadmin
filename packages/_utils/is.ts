@@ -56,6 +56,11 @@ export function isNullOrUnDef(val: unknown): val is null | undefined {
   return isUnDef(val) || isNull(val)
 }
 
+/** 验证定义且不是null */
+export function isDefAndNotNull<T = unknown>(val: T): val is NonNullable<T> {
+  return isDef(val) && !isNull(val)
+}
+
 /** 是否是数字类型 */
 export function isNumber(val: unknown): val is number {
   return is(val, 'Number')
