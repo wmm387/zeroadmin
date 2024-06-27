@@ -3,6 +3,4 @@ node_modules
 dist
 dist-ssr
 *.local
-docs/.vuepress/.cache
-docs/.vuepress/.temp
 types
