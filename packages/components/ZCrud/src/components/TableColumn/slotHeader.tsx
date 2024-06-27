@@ -32,7 +32,7 @@ const renderHeader = (column: Column) => {
       <span>
         {column.label}
         {
-          column.edit
+          (column.edit || column?.header?.edit)
             ? (<div class="i-ep-edit ml-1 inline h-4 w-4 !text-primary" />)
             : null
         }
@@ -40,12 +40,12 @@ const renderHeader = (column: Column) => {
     )
   } else {
     const slots = {} as { prefix: any }
-    if (column?.edit || column?.header?.tooltip) {
+    if (column?.edit || column?.header?.edit || column?.header?.tooltip) {
       slots.prefix = () => {
         return (
           <div>
             {
-              column.edit
+              (column.edit || column?.header?.edit)
                 ? (<div class="i-ep-edit h-4 w-4 !text-primary" />)
                 : null
             }

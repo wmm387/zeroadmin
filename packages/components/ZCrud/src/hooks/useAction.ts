@@ -37,8 +37,10 @@ export function useAction(propsRef: ComputedRef<TablePropsType>) {
   const handleSpecial = (action: ActionBtn) => {
     switch (action.special) {
       case 'add':
+      case 'create':
         return assign({}, defaultAddData, action)
       case 'edit':
+      case 'update':
         return assign({}, defaultEditData, action)
       case 'delete':
         defaultDeleteHandle(action)

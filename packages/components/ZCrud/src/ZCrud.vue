@@ -219,6 +219,7 @@ defineExpose({ refresh, setLoading })
           </div>
         </div>
         <div class="flex-cc">
+          <slot name="__before_table_header_setting" />
           <ElTooltip content="刷新表格" placement="top">
             <div class="ml-5 cursor-pointer text-info" @click="refresh">
               <div i-ep-refresh-right />
@@ -238,6 +239,7 @@ defineExpose({ refresh, setLoading })
               <div i-carbon-settings />
             </div>
           </ElTooltip>
+          <slot name="__after_table_header_setting" />
         </div>
       </div>
       <ElTable

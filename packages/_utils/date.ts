@@ -149,3 +149,13 @@ export const formatSeconds = (value, fractionDigits?: number) => {
   }
   return `${minuteStr}:${secondStr}`
 }
+
+/**
+ * 获取今天零时时间戳
+ * @param ms 是否返回毫秒
+ * @returns {number}
+ */
+export const todayUnix = (ms = false) => {
+  const unix = dateUtil(today()).unix()
+  return ms ? unix * 1000 : unix
+}

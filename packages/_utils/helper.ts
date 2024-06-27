@@ -181,3 +181,12 @@ export const formatFileSize = (size: number) => {
   if (size < pow1024(4)) return `${(size / pow1024(3)).toFixed(2)} GB`
   return `${(size / pow1024(4)).toFixed(2)} TB`
 }
+
+/**
+ * 获取随机数
+ * @param {number} min
+ * @param {number} max
+ */
+export const random = (min: number, max: number) => {
+  return Math.floor(Math.random() * (max - min + 1) + min)
+}
