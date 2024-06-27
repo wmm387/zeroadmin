@@ -23,6 +23,7 @@
     "*.css": "postcss"
   },
   "cSpell.words": [
+    "bumpp",
     "flexc",
     "Pollup",
     "vitepress",
