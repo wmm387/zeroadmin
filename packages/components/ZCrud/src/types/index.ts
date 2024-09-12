@@ -121,6 +121,8 @@ export interface Options {
     api?: PromiseFn
     fn?: (row: Recordable, column: Column, value: any) => any | Promise<any>
   }
+  // 鉴权方法
+  hasAuth?: Fn<string[], boolean>
 }
 
 export interface TablePropsType {

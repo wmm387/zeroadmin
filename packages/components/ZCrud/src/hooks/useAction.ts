@@ -1,7 +1,7 @@
 import { assign } from 'lodash-es'
 import type { ComputedRef } from 'vue'
 import { computed, unref } from 'vue'
-import { isBoolean, isUnDef, toast } from '@pkg/utils'
+import { isBoolean, isDef, isDefAndNotEmpty, isUnDef, toast } from '@pkg/utils'
 import type { ActionBtn, ActionBtnPopconfirm, TablePropsType } from '../types'
 
 export function useAction(propsRef: ComputedRef<TablePropsType>) {
@@ -23,15 +23,6 @@ export function useAction(propsRef: ComputedRef<TablePropsType>) {
       }
       act.isAsync = true
     }
-  }
-
-  // const { hasAuth } = useAuth()
-
-  const isShow = (action: ActionBtn) => {
-    const show = isUnDef(action.show) ? true : isBoolean(action.show) ? action.show : true
-    // const auth = action.auth ? hasAuth(action.auth) : true
-    const auth = true
-    return auth && show
   }
 
   const handleSpecial = (action: ActionBtn) => {
@@ -60,12 +51,14 @@ export function useAction(propsRef: ComputedRef<TablePropsType>) {
   }
 
   const getActions = computed(() => {
-    const { actions } = unref(propsRef.value.options)
+    const { actions, hasAuth } = unref(propsRef.value.options)
     if (!actions) {
       return []
     }
     return actions.filter((action) => {
-      return isShow(action)
+      const show = isUnDef(action.show) ? true : isBoolean(action.show) ? action.show : true
+      const auth = isDefAndNotEmpty(action.auth) && isDef(hasAuth) ? hasAuth(action.auth) : true
+      return auth && show
     }).map(action => {
       if (action.special) {
         action = handleSpecial(action)
