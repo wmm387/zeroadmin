@@ -2,6 +2,7 @@ import { resolve } from 'node:path'
 import { defineConfig } from 'vite'
 import Vue from '@vitejs/plugin-vue'
 import VueJsx from '@vitejs/plugin-vue-jsx'
+import VueRouter from 'unplugin-vue-router/vite'
 import ElementPlus from 'unplugin-element-plus/vite'
 import Unocss from 'unocss/vite'
 
@@ -13,17 +14,10 @@ export default defineConfig({
     },
   },
   plugins: [
-    Vue({
-      script: {
-        propsDestructure: true,
-        defineModel: true,
-      },
-    }),
+    Vue({ script: { propsDestructure: true } }),
     VueJsx(),
-    // https://github.com/element-plus/unplugin-element-plus/blob/main/README.zh-CN.md
+    VueRouter({ exclude: ['**/components/**/*.vue'] }),
     ElementPlus({}),
-    // https://github.com/antfu/unocss
-    // see uno.config.ts for config
     Unocss(),
   ],
   build: {

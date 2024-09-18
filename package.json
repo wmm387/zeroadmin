@@ -78,7 +78,9 @@
     "typescript": "^5.4.2",
     "unocss": "^0.58.5",
     "unplugin-element-plus": "^0.8.0",
+    "unplugin-vue-router": "^0.10.7",
     "vite": "^5.1.5",
+    "vue-router": "^4.4.3",
     "vue-tsc": "^2.0.6"
   }
 }
