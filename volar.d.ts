@@ -5,6 +5,7 @@ declare module 'vue' {
     BoxTitle: typeof import('@wmm387/zeroadmin')['BoxTitle']
     CopyText: typeof import('@wmm387/zeroadmin')['CopyText']
     CountTo: typeof import('@wmm387/zeroadmin')['CountTo']
+    Descriptions: typeof import('@wmm387/zeroadmin')['Descriptions']
     BaseCheckbox: typeof import('@wmm387/zeroadmin')['BaseCheckbox']
     BaseRadio: typeof import('@wmm387/zeroadmin')['BaseRadio']
     BaseSelect: typeof import('@wmm387/zeroadmin')['BaseSelect']
@@ -19,6 +20,7 @@ declare module 'vue' {
     TextColumn: typeof import('@wmm387/zeroadmin')['TextColumn']
     TimeColumn: typeof import('@wmm387/zeroadmin')['TimeColumn']
     TextTooltip: typeof import('@wmm387/zeroadmin')['TextTooltip']
+    TextTooltipV2: typeof import('@wmm387/zeroadmin')['TextTooltipV2']
     ZCrud: typeof import('@wmm387/zeroadmin')['ZCrud']
   }
 }
