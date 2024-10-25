@@ -5,14 +5,8 @@ import { ElTooltip } from 'element-plus'
 defineProps<{ content?: string }>()
 
 const slots = useSlots()
-
-const hasPrefix = computed(() => {
-  return Object.keys(slots).includes('prefix')
-})
-
-const hasExtend = computed(() => {
-  return Object.keys(slots).includes('extend')
-})
+const hasPrefix = computed(() => Object.keys(slots).includes('prefix'))
+const hasExtend = computed(() => Object.keys(slots).includes('extend'))
 
 const visible = ref(false)
 
@@ -43,10 +37,11 @@ const mouseleave = () => {
     <ElTooltip
       effect="dark"
       placement="top"
+      popper-class="max-w-500px"
       :content="content"
       :visible="visible"
     >
-      <div class="over-flow" :class="{ 'ml-1': hasPrefix, 'mr-1': hasExtend }">
+      <div truncate :class="{ 'ml-1': hasPrefix, 'mr-1': hasExtend }">
         <span @mouseenter="mouseenter" @mouseleave="mouseleave">
           <slot>{{ content }}</slot>
         </span>
@@ -55,11 +50,3 @@ const mouseleave = () => {
     <slot name="extend" />
   </div>
 </template>
-
-<style lang="scss" scoped>
-.over-flow {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-</style>
