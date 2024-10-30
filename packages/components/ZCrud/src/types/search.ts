@@ -1,5 +1,5 @@
 import type { Ref } from 'vue'
-import { SearchColumnComponentType } from './component'
+import type { SearchColumnComponentType } from './component'
 
 export interface ColumnDict {
   // 内置字典名称
@@ -9,7 +9,7 @@ export interface ColumnDict {
   // 直接设置字典值
   data?: any
   // ref值
-  refData?: Ref<any[]>
+  refData?: Ref<any>
   // 表格列的值是否翻译为字典对应标签
   translation?: boolean
   // 表格key 和 value的props设置
@@ -34,12 +34,8 @@ export interface SearchColumn {
   dateRangeField?: { prefix?: string, start_at?: string, end_at?: string }
   dict?: ColumnDict // 字典数据
   labelWidth?: number
-  required?: boolean
   rules?: any
   error?: string
-  showMessage?: boolean
-  inlineMessage?: boolean
   size?: 'large' | 'default' | 'small'
   for?: string
-  validateStatus?: '' | 'error' | 'validating' | 'success'
 }

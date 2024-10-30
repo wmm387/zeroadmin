@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ElButton, ElForm, ElFormItem } from 'element-plus'
-import { computed, provide, reactive, ref, unref, useSlots } from 'vue'
-import { cloneDeep, defaultsDeep } from 'lodash-es'
 import type { SearchColumn } from '../../types'
+import { ElButton, ElForm, ElFormItem } from 'element-plus'
+import { cloneDeep, defaultsDeep } from 'lodash-es'
+import { computed, provide, reactive, ref, unref, useSlots } from 'vue'
 import { selectDictList } from '../../const'
 import { defaultDateRangeField, defaultFuzzyInputAttr } from '../../defaultData'
 import FormItemRender from './FormItemRender'
@@ -35,7 +35,6 @@ const handlerProps = (column: SearchColumn, tmpArr) => {
     const label = dicItem[column.dict?.props?.label || 'label']
     const tmp = dicItem[column.dict?.props?.value || 'value']
     const value = typeof tmp == 'boolean' ? `${tmp}` : tmp
-    colors[value] = (column.dict.tagColors && column.dict.tagColors[value]) || undefined
     tran[value] = label
     return { label, value }
   })
@@ -65,8 +64,6 @@ const init = async () => {
         column.component = 'select'
       } else if (!column?.slot) {
         column.component = 'input'
-      } else if (column.fuzzyAttr) {
-        column.component = 'fuzzyInput'
       }
     }
     searchForm[column.prop] = column.default ?? initFormData(column)
@@ -162,7 +159,7 @@ defineExpose({
       @search="search"
     />
     <div :class="inlineBtn ? 'inline-block' : 'block'">
-      <ElFormItem>
+      <ElFormItem :label-width="0">
         <ElButton type="primary" :loading="loading" @click="search">
           查询
         </ElButton>

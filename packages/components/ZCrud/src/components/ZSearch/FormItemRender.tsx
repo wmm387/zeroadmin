@@ -1,8 +1,8 @@
-import { type PropType, defineComponent, inject, unref } from 'vue'
-import { ElFormItem, ElInput, ElOption, ElSelect } from 'element-plus'
+import type { SearchColumn } from '../../types'
 import { DateRangePickerWithQuick, FuzzyOrMatchInput } from '@pkg/components'
 import { isDef, isFunction } from '@pkg/utils'
-import type { SearchColumn } from '../../types'
+import { ElFormItem, ElInput, ElOption, ElSelect } from 'element-plus'
+import { defineComponent, inject, type PropType, unref } from 'vue'
 import FormItemSlot from './FormItemSlot'
 
 const FormItemRender = defineComponent({
@@ -154,27 +154,13 @@ const FormItemRender = defineComponent({
       )
     }
 
-    function handleShow(item: SearchColumn) {
-      if (isDef(item.show)) {
-        if (isFunction(item.show)) {
-          return item.show(item)
-        } else {
-          return item.show
-        }
-      } else {
-        return true
-      }
-    }
-
     function renderFormItem(item: SearchColumn) {
-      if (handleShow(item)) {
-        if (item.render) {
-          return genRender(item)
-        } else if (item.slot) {
-          return genSlot(item)
-        } else if (item.component) {
-          return genComponent(item)
-        }
+      if (item.render) {
+        return genRender(item)
+      } else if (item.slot) {
+        return genSlot(item)
+      } else if (item.component) {
+        return genComponent(item)
       }
     }
 

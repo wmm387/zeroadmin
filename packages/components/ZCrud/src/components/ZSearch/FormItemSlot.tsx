@@ -1,6 +1,6 @@
 import type { PropType } from 'vue'
-import { h, inject } from 'vue'
 import type { SearchColumn } from '../../types'
+import { h, inject } from 'vue'
 
 interface PropsType {
   item: SearchColumn
