@@ -5,6 +5,7 @@ export const setItem = (key: string, item: any): void => {
     try {
       localStorage.setItem(key, item)
     } catch (error) {
+      console.error('🚀 ~ file: storage.ts ~ setItem ~ error:', error)
       throw new Error('item is not a object')
     }
   }
@@ -19,6 +20,7 @@ export const getItem = (key: string): any => {
       return JSON.parse(item)
     }
   } catch (error) {
+    console.error('🚀 ~ file: storage.ts ~ getItem ~ error:', error)
     return localStorage.getItem(key)
   }
 }

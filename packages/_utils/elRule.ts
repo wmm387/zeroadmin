@@ -1,11 +1,11 @@
-import { trim } from 'lodash-es'
 import type { FormItemRule } from 'element-plus'
+import { trim } from 'lodash-es'
 import { isDef, isNumber } from './is'
 
 /**
  * 是否必填
  * @param label 字段名
- * @returns {FormItemRule}
+ * @returns {FormItemRule} FormItemRule
  */
 const isRequired = (label?: string): FormItemRule => {
   return { required: true, message: `${label ?? ''}必填` }
@@ -13,7 +13,7 @@ const isRequired = (label?: string): FormItemRule => {
 
 /**
  * 必填不包含空格
- * @returns {FormItemRule}
+ * @returns {FormItemRule} FormItemRule
  */
 const isRequiredNoWP = (): FormItemRule => {
   return { required: true, whitespace: true, message: '必填' }
@@ -22,7 +22,7 @@ const isRequiredNoWP = (): FormItemRule => {
 /**
  * 验证手机号码
  * @param required 是否必填,默认true
- * @returns {FormItemRule}
+ * @returns {FormItemRule} FormItemRule
  */
 const isPhone = (required = true): FormItemRule => {
   return {
@@ -42,7 +42,7 @@ const isPhone = (required = true): FormItemRule => {
 /**
  * 验证邮件
  * @param required 是否必填,默认false
- * @returns {FormItemRule}
+ * @returns {FormItemRule} FormItemRule
  */
 const isEmail = (required = false): FormItemRule => {
   return { required, type: 'email', message: '请输入正确的邮箱格式' }
@@ -51,7 +51,7 @@ const isEmail = (required = false): FormItemRule => {
 /**
  * 验证URL
  * @param required 是否必填,默认false
- * @returns {FormItemRule}
+ * @returns {FormItemRule} FormItemRule
  */
 const isUrl = (required = false): FormItemRule => {
   return { required, type: 'url', message: '请输入正确的链接格式' }
@@ -61,7 +61,7 @@ const isUrl = (required = false): FormItemRule => {
  * 限制字符串长度
  * @param min 最小长度(包含)
  * @param max 最大长度(包含)
- * @returns {FormItemRule}
+ * @returns {FormItemRule} FormItemRule
  */
 const limitString = (min: number, max: number): FormItemRule => {
   return { min, max, message: `介于${min}-${max}个字符之间` }
@@ -75,7 +75,7 @@ const limitString = (min: number, max: number): FormItemRule => {
  * @param {number} options.max 大于
  * @param {number} options.minE 小于等于
  * @param {number} options.maxE 大于等于
- * @returns {FormItemRule}
+ * @returns {FormItemRule} FormItemRule
  */
 const limitNumber = ({ required = false, min, max, minE, maxE }: { required?: boolean, min?: number, max?: number, minE?: number, maxE?: number }): FormItemRule => {
   return {
@@ -105,24 +105,24 @@ const limitNumber = ({ required = false, min, max, minE, maxE }: { required?: bo
 /**
  * 验证正整数
  * @param required 是否必填,默认false
- * @returns {FormItemRule}
+ * @returns {FormItemRule} FormItemRule
  */
 const isPositiveInt = (required = false): FormItemRule => {
-  return { required, pattern: /^[+]{0,1}([1-9]\d*)$/g, message: '请输入正整数' }
+  return { required, pattern: /^\+?([1-9]\d*)$/g, message: '请输入正整数' }
 }
 
 /**
  * 验证包含0的正整数
  * @param required 是否必填,默认false
- * @returns {FormItemRule}
+ * @returns {FormItemRule} FormItemRule
  */
 const isPositiveIntWithZero = (required = false): FormItemRule => {
-  return { required, pattern: /^[+]{0,1}(\d+)$/g, message: '请输入0或者正整数' }
+  return { required, pattern: /^\+?(\d+)$/g, message: '请输入0或者正整数' }
 }
 
 /**
  * 验证wangEditor富文本编辑器是否必填
- * @returns {FormItemRule}
+ * @returns {FormItemRule} FormItemRule
  */
 const isWangEditorRequired = (): FormItemRule => {
   return {

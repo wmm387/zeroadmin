@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed, nextTick, onMounted, ref, useSlots, watch } from 'vue'
 import { useWindowSize } from '@vueuse/core'
 import { ElTooltip } from 'element-plus'
+import { computed, nextTick, onMounted, ref, useSlots, watch } from 'vue'
 
 const { content, ellipsisPosition = 'end' } = defineProps<{
   content?: string

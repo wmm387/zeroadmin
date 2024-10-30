@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { computed, ref, useSlots } from 'vue'
 import { ElTooltip } from 'element-plus'
+import { computed, ref, useSlots } from 'vue'
 
 defineProps<{ content?: string }>()
 

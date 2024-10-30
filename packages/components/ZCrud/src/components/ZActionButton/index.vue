@@ -1,8 +1,8 @@
 <script setup lang="ts">
+import type { ActionBtn, ActionBtnPopconfirm } from '../../types'
+import { isAsyncFn, isFunction, isPromise } from '@pkg/utils'
 import { ElButton, ElPopconfirm } from 'element-plus'
 import { computed, ref } from 'vue'
-import { isAsyncFn, isFunction, isPromise } from '@pkg/utils'
-import type { ActionBtn, ActionBtnPopconfirm } from '../../types'
 
 interface PropsType {
   action: ActionBtn

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { demoApi } from '@/api'
 import { useZCrud } from '@pkg/index'
 import { ElRule, option2Map } from '@pkg/utils'
-import { demoApi } from '@/api'
+import { ref } from 'vue'
 
 const options = [
   { label: 'PC', value: 1 },

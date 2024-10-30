@@ -105,11 +105,9 @@ export function appendFieldByUniqueId(
   if (!menuTree || menuTree.length === 0) return {}
   for (const node of menuTree) {
     const hasChildren = node.children && node.children.length > 0
-    if (
-      node.uniqueId === uniqueId
-      && Object.prototype.toString.call(fields) === '[object Object]'
-    )
+    if (node.uniqueId === uniqueId && Object.prototype.toString.call(fields) === '[object Object]') {
       Object.assign(node, fields)
+    }
     if (hasChildren) {
       appendFieldByUniqueId(node.children, uniqueId, fields)
     }

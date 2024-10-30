@@ -87,7 +87,7 @@ export function uuid() {
  * 浮点转百分比
  * @param float 浮点数字
  * @param fractionDigits 保留小数位数
- * @returns {string}
+ * @returns {string} 百分比
  */
 export function float2Percent(float: number, fractionDigits = 2) {
   return `${(float * 100).toFixed(fractionDigits)}%`
@@ -97,7 +97,7 @@ export function float2Percent(float: number, fractionDigits = 2) {
  * 去除字符串两端的指定字符
  * @param str 字符串
  * @param chars 指定字符
- * @returns {string}
+ * @returns {string} 去除两端指定字符后的字符串
  */
 export function trim(str: string, chars = ' ') {
   // 构造正则表达式，匹配开头和结尾的指定字符
@@ -127,7 +127,7 @@ export const formatSelectOptions = (list: Recordable[], labelField = 'name', val
 /**
  * 根据图片地址获取图片大小
  * @param src 图片地址
- * @returns {Promise<{width: number, height: number}>}
+ * @returns {Promise<{width: number, height: number}>} 图片大小
  */
 export const getImageWidthHeight: (src: string) => Promise<{ width: number, height: number }> = src => {
   return new Promise(resolve => {
@@ -145,7 +145,7 @@ export const getImageWidthHeight: (src: string) => Promise<{ width: number, heig
 /**
  * 获取音频时长
  * @param url 音频地址
- * @returns {Promise<number>}
+ * @returns {Promise<number>} 音频时长
  */
 export async function getAudioTime(url: string): Promise<number> {
   return new Promise((resolve, reject) => {
@@ -162,7 +162,7 @@ export async function getAudioTime(url: string): Promise<number> {
 /**
  * 1024的幂次方
  * @param {number} num
- * @returns {number}
+ * @returns {number} 1024的幂次方
  */
 export const pow1024 = (num: number) => {
   return 1024 ** num
@@ -171,7 +171,7 @@ export const pow1024 = (num: number) => {
 /**
  * 格式化文件大小
  * @param {number} size
- * @returns {string}
+ * @returns {string} 格式化后的文件大小
  */
 export const formatFileSize = (size: number) => {
   if (!size) return '-'

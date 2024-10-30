@@ -1,7 +1,7 @@
 import type { ComputedRef } from 'vue'
-import { computed, reactive, ref, unref } from 'vue'
-import { isBoolean, isDefAndNotNull } from '@pkg/utils'
 import type { PaginationProps, TablePropsType } from '../types'
+import { isBoolean, isDefAndNotNull } from '@pkg/utils'
+import { computed, reactive, ref, unref } from 'vue'
 
 const defaultPageSize = 20
 

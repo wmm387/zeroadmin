@@ -93,6 +93,7 @@ export function isString(val: unknown): val is string {
 }
 
 /** 是否是方法 */
+// eslint-disable-next-line ts/no-unsafe-function-type
 export function isFunction(val: unknown): val is Function {
   return typeof val === 'function'
 }
@@ -130,21 +131,19 @@ export const isClient = !isServer
 
 /** url链接正则 */
 export function isUrl(value: string): boolean {
-  const reg
-    = /(((^https?:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+(?::\d+)?|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)$/
+  const reg = /^(?:https?:\/\/)?(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(?::\d+)?(?:\/\S*)?$/
   return reg.test(value)
 }
 
 /** 手机号码正则 */
 export function isPhone(value: string): boolean {
-  const reg
-    = /^[1](([3][0-9])|([4][0,1,4-9])|([5][0-3,5-9])|([6][2,5,6,7])|([7][0-8])|([8][0-9])|([9][0-3,5-9]))[0-9]{8}$/
+  const reg = /^1[3-9]\d{9}$/
   return reg.test(value)
 }
 
 /** 邮箱正则 */
 export function isEmail(value: string): boolean {
-  const reg = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
+  const reg = /^[\w.%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i
   return reg.test(value)
 }
 

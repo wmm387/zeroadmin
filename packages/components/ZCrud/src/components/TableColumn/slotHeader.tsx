@@ -1,7 +1,7 @@
-import { h, inject } from 'vue'
-import { ElTooltip } from 'element-plus'
-import { TextTooltip } from '@pkg/components'
 import type { Column } from '../../types'
+import { TextTooltip } from '@pkg/components'
+import { ElTooltip } from 'element-plus'
+import { h, inject } from 'vue'
 
 const TableSlotHeader = props => {
   const ZCrudSlot = inject('ZCrudSlot') as any
@@ -52,9 +52,9 @@ const renderHeader = (column: Column) => {
             {
               column.header?.tooltip
                 ? (
-                  <ElTooltip content={column.header.tooltip} placement="top">
-                    <div class="i-ep-info-filled h-4 w-4 text-info" />
-                  </ElTooltip>
+                    <ElTooltip content={column.header.tooltip} placement="top">
+                      <div class="i-ep-info-filled h-4 w-4 text-info" />
+                    </ElTooltip>
                   )
                 : null
             }

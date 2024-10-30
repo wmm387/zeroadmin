@@ -1,6 +1,6 @@
 import { ElMessage, ElMessageBox } from 'element-plus'
-import { isObject } from './is'
 import { hasOwn } from './helper'
+import { isObject } from './is'
 
 function extractProps(obj, ...props) {
   return props.map(key => {

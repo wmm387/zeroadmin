@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { PropType } from 'vue'
-import { computed, onMounted, reactive, unref, watch } from 'vue'
 import { isNumber } from '@pkg/utils'
+import { computed, onMounted, reactive, unref, watch } from 'vue'
 
 const props = defineProps({
   startVal: {

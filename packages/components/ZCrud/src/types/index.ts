@@ -1,7 +1,7 @@
 import type { Column, EditColumnType } from './column'
 import type { ColumnDict, SearchColumn } from './search'
 
-export { Column, EditColumnType, ColumnDict, SearchColumn }
+export { Column, ColumnDict, EditColumnType, SearchColumn }
 
 export interface FetchSetting {
   // 请求当前页数字段

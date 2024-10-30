@@ -50,6 +50,8 @@
     "b": "vite build && vue-tsc -p tsconfig.lib.json",
     "rel": "bumpp --no-push",
     "tsc": "tsc --noEmit && vue-tsc --noEmit --skipLibCheck",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "up": "taze major -I"
   },
   "peerDependencies": {

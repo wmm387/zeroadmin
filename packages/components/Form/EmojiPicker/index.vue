@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { ElButton } from 'element-plus'
-import './assets/styles/V3Emoji.scss'
 import { onClickOutside } from '@vueuse/core'
+import { ElButton } from 'element-plus'
+import { ref } from 'vue'
 import PollUp from './EmojiPollUp.vue'
+import './assets/styles/V3Emoji.scss'
 
 const {
   size = 'mid',

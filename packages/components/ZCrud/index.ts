@@ -1,4 +1,3 @@
-import { useZCrud } from './src/hooks/useZCrud'
 import type {
   EditColumnType as ZCrudEditColumnType,
   Options as ZCrudOptions,
@@ -7,6 +6,7 @@ import type {
   Column as ZCrudTableColumn,
   TablePropsType as ZCrudTablePropsType,
 } from './src/types'
+import { useZCrud } from './src/hooks/useZCrud'
 
 export {
   useZCrud,

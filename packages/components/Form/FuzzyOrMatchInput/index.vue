@@ -39,8 +39,7 @@ const match = defineModel<number>('match', { default: 0 })
 
     .el-select__wrapper {
       border-radius: 0 4px 4px 0 !important;
-      box-shadow: -0.5px 0 0 1px
-        var(--el-input-border-color, var(--el-border-color)) inset;
+      box-shadow: -0.5px 0 0 1px var(--el-input-border-color, var(--el-border-color)) inset;
     }
 
     .el-select__caret {

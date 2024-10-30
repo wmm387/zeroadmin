@@ -1,11 +1,11 @@
 import type { PropType } from 'vue'
-import { defineComponent } from 'vue'
+import type { Column } from '../../types'
 import { ElTableColumn } from 'element-plus'
 import { get } from 'lodash-es'
-import type { Column } from '../../types'
+import { defineComponent } from 'vue'
+import RenderComponentColumn from './renderComponentColumn'
 import SlotColumn from './slotColumn'
 import columnHeaderSlot from './slotHeader'
-import RenderComponentColumn from './renderComponentColumn'
 import ZEditableCell from './ZEditableCell.vue'
 
 const RenderColumn = defineComponent({

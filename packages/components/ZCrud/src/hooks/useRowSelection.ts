@@ -1,7 +1,7 @@
-import type { ComputedRef, Ref } from 'vue'
-import { computed, ref, toRaw, unref } from 'vue'
 import type { TableInstance } from 'element-plus'
+import type { ComputedRef, Ref } from 'vue'
 import type { TablePropsType } from '../types'
+import { computed, ref, toRaw, unref } from 'vue'
 
 export function useRowSelection(propsRef: ComputedRef<TablePropsType>, tableRef: Ref<TableInstance>, emit: EmitType) {
   const selectedRowRef = ref<Recordable[]>([])

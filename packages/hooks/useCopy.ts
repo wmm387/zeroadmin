@@ -1,5 +1,5 @@
-import onCopy from 'copy-to-clipboard'
 import { toast } from '@pkg/utils'
+import onCopy from 'copy-to-clipboard'
 
 export default function useCopy() {
   const copy = text => {

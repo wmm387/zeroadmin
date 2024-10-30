@@ -1,3 +1,4 @@
+import presetWmm from '@wmm387/unocss-preset'
 import {
   defineConfig,
   presetAttributify,
@@ -5,7 +6,6 @@ import {
   presetUno,
   transformerDirectives,
 } from 'unocss'
-import presetWmm from '@wmm387/unocss-preset'
 
 export default defineConfig({
   shortcuts: [

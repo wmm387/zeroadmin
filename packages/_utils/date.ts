@@ -5,7 +5,7 @@ export const dateUtil = dayjs
 /**
  * 获取今天日期字符串
  * @param format 格式化字符串,默认YYYY-MM-DD
- * @returns  {string}
+ * @returns {string} 今天日期字符串
  */
 export function today(format = 'YYYY-MM-DD') {
   return dayjs().format(format)
@@ -14,7 +14,7 @@ export function today(format = 'YYYY-MM-DD') {
 /**
  * 获取昨天日期字符串
  * @param format 格式化字符串,默认YYYY-MM-DD
- * @returns  {string}
+ * @returns {string} 昨天日期字符串
  */
 export function yesterday(format = 'YYYY-MM-DD') {
   return dayjs().subtract(1, 'day').format(format)
@@ -32,7 +32,7 @@ export const now = () => {
  * 获取日期字符串
  * @param date dayjs.ConfigType
  * @param format 格式化字符串,默认YYYY-MM-DD
- * @returns {string}
+ * @returns {string} 日期字符串
  */
 export const date = (date: dayjs.ConfigType, format = 'YYYY-MM-DD'): string => {
   return date ? dayjs(date).format(format) : '--'
@@ -42,7 +42,7 @@ export const date = (date: dayjs.ConfigType, format = 'YYYY-MM-DD'): string => {
  * 获取时间字符串
  * @param date dayjs.ConfigType
  * @param format 格式化字符串,默认YYYY-MM-DD HH:mm:ss
- * @returns  {string}
+ * @returns {string} 时间字符串
  */
 export const time = (date: dayjs.ConfigType, format = 'YYYY-MM-DD HH:mm:ss'): string => {
   if (date) return dayjs(date).format(format)
@@ -63,7 +63,7 @@ export const timesFormats = (time?: boolean) => {
 /**
  * 今天日期数组
  * @param time 是否需要时间
- * @returns {string}
+ * @returns {string} 今天日期数组
  */
 export const todays = (time?: boolean) => {
   const formats = timesFormats(time)
@@ -153,7 +153,7 @@ export const formatSeconds = (value, fractionDigits?: number) => {
 /**
  * 获取今天零时时间戳
  * @param ms 是否返回毫秒
- * @returns {number}
+ * @returns {number} 今天零时时间戳
  */
 export const todayUnix = (ms = false) => {
   const unix = dateUtil(today()).unix()

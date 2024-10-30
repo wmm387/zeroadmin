@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { computed } from 'vue'
 import { time } from '@pkg/utils'
+import { computed } from 'vue'
 
 const props = defineProps<{ timeStr?: string }>()
 

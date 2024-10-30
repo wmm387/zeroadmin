@@ -1,6 +1,5 @@
 import type { SearchColumn } from '../../types'
 import { DateRangePickerWithQuick, FuzzyOrMatchInput } from '@pkg/components'
-import { isDef, isFunction } from '@pkg/utils'
 import { ElFormItem, ElInput, ElOption, ElSelect } from 'element-plus'
 import { defineComponent, inject, type PropType, unref } from 'vue'
 import FormItemSlot from './FormItemSlot'

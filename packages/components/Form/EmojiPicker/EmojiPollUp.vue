@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import './assets/styles/V3Emoji.scss'
 import { onBeforeUnmount, onMounted, ref, watchEffect } from 'vue'
 import EmojiData from './assets/emojidata/emoji-data.json'
 import SizeData from './assets/options/SizeData.json'
 import ThemeData from './assets/options/ThemeData.json'
+import { saveToLocal } from './utils/commonUtils'
 import { filterData } from './utils/emojiFilter'
 import { getItem, removeItem, setItem } from './utils/storage'
-import { saveToLocal } from './utils/commonUtils'
+import './assets/styles/V3Emoji.scss'
 
 const props = defineProps<{
   size: string
@@ -48,15 +48,13 @@ const recentData = ref<Emoji.ObjectItem>(getItem('emoji-recent') || null)
 const groupName: string[] = []
 // 过滤皮肤选项
 const emojiSkin = (emoji: Emoji.EmojiItem) => {
-  if (!emoji.skin_tone_support) return emoji.emoji
-  else {
+  if (!emoji.skin_tone_support) {
+    return emoji.emoji
+  } else {
     if (!emoji.skin_tone_support_unicode_version) {
       return emoji.emoji
     } else {
-      const skin
-        = Number.parseInt(emoji.skin_tone_support_unicode_version) < 10
-          ? Skin[props.skin]
-          : ''
+      const skin = Number.parseInt(emoji.skin_tone_support_unicode_version) < 10 ? Skin[props.skin] : ''
       return `${emoji.emoji}${skin}`
     }
   }
@@ -73,11 +71,7 @@ const initPollup = () => {
     }
     setItem('emoji-recent', recentData.value)
   }
-  if (
-    props.defaultSelect
-    && (groupName.includes(props.defaultSelect)
-    || (props.defaultSelect === 'recent' && props.needLocal))
-  ) {
+  if (props.defaultSelect && (groupName.includes(props.defaultSelect) || (props.defaultSelect === 'recent' && props.needLocal))) {
     activeTab.value = props.defaultSelect
   } else {
     activeTab.value = groupName[0]
@@ -163,13 +157,11 @@ const setSize = () => {
   if (pollUpEl.value) {
     if (props.customSize) {
       for (const key in sizeData[props.size]) {
-        if (props.customSize[key])
+        if (props.customSize[key]) {
           pollUpEl.value.style.setProperty(`--${key}`, props.customSize[key])
-        else
-          pollUpEl.value.style.setProperty(
-            `--${key}`,
-            sizeData[props.size][key],
-          )
+        } else {
+          pollUpEl.value.style.setProperty(`--${key}`, sizeData[props.size][key])
+        }
       }
     } else {
       for (const key in sizeData[props.size]) {
@@ -183,13 +175,11 @@ const setTheme = () => {
   if (pollUpEl.value) {
     if (props.customTheme) {
       for (const key in themeData[props.theme]) {
-        if (props.customTheme[key])
+        if (props.customTheme[key]) {
           pollUpEl.value.style.setProperty(`--${key}`, props.customTheme[key])
-        else
-          pollUpEl.value.style.setProperty(
-            `--${key}`,
-            themeData[props.theme][key],
-          )
+        } else {
+          pollUpEl.value.style.setProperty(`--${key}`, themeData[props.theme][key])
+        }
       }
     } else {
       for (const key in themeData[props.theme]) {
@@ -322,15 +312,11 @@ $fontColor: var(--V3Emoji-fontColor);
 
   .emoji-container {
     display: grid;
-    grid-template-columns: repeat(
-      auto-fill,
-      calc(var(--V3Emoji-itemSize) + 2 * $padding)
-    );
+    grid-template-columns: repeat(auto-fill, calc(var(--V3Emoji-itemSize) + 2 * $padding));
     justify-content: space-between;
     align-items: center;
-    max-height: calc(
-      var(--V3Emoji-height) - $itemsize * 2 - 2 * $padding - 10px
-    ); //计算出最大高度 根据tabname以及tab
+    //计算出最大高度 根据tabname以及tab
+    max-height: calc(var(--V3Emoji-height) - $itemsize * 2 - 2 * $padding - 10px);
     overflow-y: auto;
 
     &-item {

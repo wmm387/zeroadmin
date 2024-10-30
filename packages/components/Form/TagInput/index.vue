@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import { toast } from '@pkg/utils'
 import { ElButton, ElInput, ElTag } from 'element-plus'
 import { nextTick, ref } from 'vue'
-import { toast } from '@pkg/utils'
 
 const tags = defineModel<string[]>('tags')
 

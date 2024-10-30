@@ -1,6 +1,6 @@
 import type { PropType } from 'vue'
-import { defineComponent, useSlots } from 'vue'
 import { ElDescriptions, ElDescriptionsItem } from 'element-plus'
+import { defineComponent, useSlots } from 'vue'
 
 interface DescData {
   label: string
