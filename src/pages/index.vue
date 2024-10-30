@@ -30,9 +30,9 @@ const options = [
     bg="#fbfbfb"
   >
     <Pagination :total="100" />
-    <BaseCheckbox v-model="currentItem.checkboxList" :options="options" button />
-    <BaseRadio v-model="currentItem.radio" :options="options" />
-    <BaseSelect v-model="currentItem.select" :options="options" w="!220px" />
+    <Checkbox v-model="currentItem.checkboxList" :options="options" button />
+    <Radio v-model="currentItem.radio" :options="options" />
+    <Select v-model="currentItem.select" :options="options" w="!220px" />
     <FuzzyOrMatchInput v-model="currentItem.keyword" v-model:match="currentItem.match" />
     <NumberInput v-model="currentItem.number" style="width: 220px" />
     <TagInput v-model:tags="currentItem.tags" />

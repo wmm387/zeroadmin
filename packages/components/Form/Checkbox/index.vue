@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ElCheckbox, ElCheckboxButton, ElCheckboxGroup } from 'element-plus'
-import { computed } from 'vue'
 import { get } from 'lodash-es'
+import { computed } from 'vue'
 
 const {
   modelValue,

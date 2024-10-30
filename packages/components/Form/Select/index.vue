@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ElOption, ElSelect } from 'element-plus'
-import { computed } from 'vue'
 import { get } from 'lodash-es'
+import { computed } from 'vue'
 
 interface PropsType {
   options: Recordable[]

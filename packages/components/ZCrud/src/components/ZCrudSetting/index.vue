@@ -1,9 +1,9 @@
 <script setup lang="ts">
+import type { Column } from '../../types'
+import { NumberInput, Radio, TrueFalseSwitch } from '@pkg/components'
 import { ElButton, ElDrawer, ElTable, ElTableColumn } from 'element-plus'
-import { BaseRadio, NumberInput, TrueFalseSwitch } from '@pkg/components'
 import Sortable from 'sortablejs'
 import { computed, nextTick, ref } from 'vue'
-import type { Column } from '../../types'
 
 const props = defineProps<{ columns: Column[] }>()
 
@@ -109,7 +109,7 @@ defineExpose({ open })
         prop="fixed"
         width="160"
       >
-        <BaseRadio
+        <Radio
           v-model="row.fixed"
           size="small"
           button
