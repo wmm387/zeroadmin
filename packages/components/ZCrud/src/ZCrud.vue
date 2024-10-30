@@ -319,7 +319,7 @@ defineExpose({ refresh, setLoading })
 </template>
 
 <style lang="scss">
-@import './style.scss';
+@use './style.scss';
 
 .z-crud-table {
   tbody td {

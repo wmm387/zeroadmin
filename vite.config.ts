@@ -1,10 +1,10 @@
 import { resolve } from 'node:path'
-import { defineConfig } from 'vite'
 import Vue from '@vitejs/plugin-vue'
 import VueJsx from '@vitejs/plugin-vue-jsx'
-import VueRouter from 'unplugin-vue-router/vite'
-import ElementPlus from 'unplugin-element-plus/vite'
 import Unocss from 'unocss/vite'
+import ElementPlus from 'unplugin-element-plus/vite'
+import VueRouter from 'unplugin-vue-router/vite'
+import { defineConfig } from 'vite'
 
 export default defineConfig({
   resolve: {
@@ -38,6 +38,13 @@ export default defineConfig({
         // },
         // disable warning on src/index.ts using both default and named export
         exports: 'named',
+      },
+    },
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        api: 'modern-compiler',
       },
     },
   },
