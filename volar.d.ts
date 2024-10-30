@@ -1,7 +1,7 @@
 // Auto generated component declarations
 declare module 'vue' {
   export interface GlobalComponents {
-    BasePagination: typeof import('@wmm387/zeroadmin')['BasePagination']
+    Pagination: typeof import('@wmm387/zeroadmin')['Pagination']
     BoxTitle: typeof import('@wmm387/zeroadmin')['BoxTitle']
     CopyText: typeof import('@wmm387/zeroadmin')['CopyText']
     CountTo: typeof import('@wmm387/zeroadmin')['CountTo']

@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import { computed } from 'vue'
 import { ElPagination } from 'element-plus'
+import { computed } from 'vue'
 
 const {
   total = 0,
   page = 1,
   pageSize = 20,
-  small,
+  size = 'default',
   disabled,
   pageSizeOption = [10, 20, 50, 100, 200],
 } = defineProps<{
   total?: number
   page?: number
   pageSize?: number
-  small?: boolean
+  size?: 'large' | 'default' | 'small'
   disabled?: boolean
   pageSizeOption?: number[]
 }>()
@@ -41,7 +41,7 @@ const sizeChange = pageSize => {
     <ElPagination
       layout="total,sizes,prev,next,jumper"
       :total="total"
-      :small="small"
+      :size="size"
       :current-page="page"
       :page-size="pageSize"
       :page-sizes="pageSizeOption"
@@ -49,7 +49,7 @@ const sizeChange = pageSize => {
       @current-change="currentChange"
       @size-change="sizeChange"
     />
-    <div class="total-page flex-cc" :class="{ 'text-sm': small }">
+    <div class="total-page flex-cc" :class="{ 'text-sm': size === 'small' }">
       <span class="mx-1">/</span>
       <span>{{ totalPages }}</span>
       <span class="ml-1">页</span>

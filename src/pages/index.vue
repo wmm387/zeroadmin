@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Pagination } from '@pkg/components'
 import { ref } from 'vue'
 
 const currentItem = ref({
@@ -28,7 +29,7 @@ const options = [
     space-y-4
     bg="#fbfbfb"
   >
-    <BasePagination :total="100" />
+    <Pagination :total="100" />
     <BaseCheckbox v-model="currentItem.checkboxList" :options="options" button />
     <BaseRadio v-model="currentItem.radio" :options="options" />
     <BaseSelect v-model="currentItem.select" :options="options" w="!220px" />
