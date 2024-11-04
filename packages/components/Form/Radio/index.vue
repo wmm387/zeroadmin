@@ -1,34 +1,28 @@
 <script setup lang="ts">
-import { ElRadio, ElRadioButton, ElRadioGroup } from 'element-plus'
+import { useBreakpoints } from '@pkg/hooks'
+import { ElButton, ElDropdown, ElDropdownItem, ElDropdownMenu, ElRadio, ElRadioButton, ElRadioGroup } from 'element-plus'
 import { get } from 'lodash-es'
 import { computed } from 'vue'
 
 const {
-  modelValue,
   options,
   valueField = 'value',
   labelField = 'label',
   labelFormatter,
   valueFormatter,
   button,
+  xs,
 } = defineProps<{
-  modelValue: number | string | boolean
   options: Recordable[]
   valueField?: string
   labelField?: string
   labelFormatter?: (option: any) => string | number
   valueFormatter?: (option: any) => any
   button?: boolean
+  xs?: boolean
 }>()
 
-const emit = defineEmits(['update:modelValue'])
-
-const value = computed({
-  get: () => modelValue,
-  set: (val: number | string | boolean) => {
-    emit('update:modelValue', val)
-  },
-})
+const modelValue = defineModel<number | string | boolean>()
 
 const childComponent = button ? ElRadioButton : ElRadio
 
@@ -40,10 +34,39 @@ const getOptions = computed(() => {
     }
   })
 })
+
+const { smallerThanSm } = useBreakpoints()
+
+const modelValueLabel = computed(() => {
+  return getOptions.value.find(item => item.value === modelValue.value)?.label
+})
+
+const dropdownChange = value => {
+  modelValue.value = value
+}
 </script>
 
 <template>
-  <ElRadioGroup v-model="value">
+  <ElDropdown v-if="smallerThanSm && xs">
+    <ElButton type="primary">
+      <div flex-cc>
+        {{ modelValueLabel }}
+        <div i-ep-arrow-down ml-2 />
+      </div>
+    </ElButton>
+    <template #dropdown>
+      <ElDropdownMenu>
+        <ElDropdownItem
+          v-for="item in getOptions"
+          :key="item.value"
+          @click="dropdownChange(item.value)"
+        >
+          {{ item.label }}
+        </ElDropdownItem>
+      </ElDropdownMenu>
+    </template>
+  </ElDropdown>
+  <ElRadioGroup v-else v-model="modelValue">
     <component
       :is="childComponent"
       v-for="item in getOptions"
