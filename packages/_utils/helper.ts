@@ -1,3 +1,4 @@
+import type { PropType } from 'vue'
 import { get } from 'lodash-es'
 import { getCurrentInstance } from 'vue'
 
@@ -189,4 +190,20 @@ export const formatFileSize = (size: number) => {
  */
 export const random = (min: number, max: number) => {
   return Math.floor(Math.random() * (max - min + 1) + min)
+}
+
+export const definePropType = <T>(val: any): PropType<T> => val
+
+/**
+ * 去除对象中所有的未定义属性
+ * @param obj
+ * @returns {Recordable}
+ */
+export const removeUndefined = (obj: Recordable) => {
+  Object.keys(obj).forEach(key => {
+    if (obj[key] === undefined) {
+      delete obj[key]
+    }
+  })
+  return obj
 }

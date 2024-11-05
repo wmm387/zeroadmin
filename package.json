@@ -19,6 +19,11 @@
       "import": "./dist/utils.js",
       "require": "./dist/utils.cjs"
     },
+    "./hooks": {
+      "types": "./dist/types/hooks.d.ts",
+      "import": "./dist/hooks.js",
+      "require": "./dist/hooks.cjs"
+    },
     "./volar": {
       "types": "./volar.d.ts"
     },
@@ -36,6 +41,9 @@
       "utils": [
         "./dist/types/utils.d.ts"
       ],
+      "hooks": [
+        "./dist/types/hooks.d.ts"
+      ],
       "volar": [
         "./volar.d.ts"
       ]
@@ -46,7 +54,7 @@
     "volar.d.ts"
   ],
   "scripts": {
-    "d": "vite",
+    "d": "vite --host",
     "b": "vite build && vue-tsc -p tsconfig.lib.json",
     "rel": "bumpp --no-push",
     "tsc": "tsc --noEmit && vue-tsc --noEmit --skipLibCheck",

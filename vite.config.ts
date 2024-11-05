@@ -22,7 +22,11 @@ export default defineConfig({
   ],
   build: {
     lib: {
-      entry: [resolve(__dirname, 'packages/index.ts'), resolve(__dirname, 'packages/utils.ts')],
+      entry: [
+        resolve(__dirname, 'packages/index.ts'),
+        resolve(__dirname, 'packages/utils.ts'),
+        resolve(__dirname, 'packages/hooks.ts'),
+      ],
       name: 'ZeroAdmin',
       // fileName: (format, entryName) => `${entryName}.${format}.js`,
     },
