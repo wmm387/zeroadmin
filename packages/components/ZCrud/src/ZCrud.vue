@@ -320,24 +320,4 @@ defineExpose({ refresh, setLoading })
 
 <style lang="scss">
 @use './style.scss';
-
-.z-crud-table {
-  tbody td {
-    .base-cell:empty::after {
-      content: '--' !important;
-    }
-    .cell:empty::after {
-      content: '--' !important;
-    }
-  }
-}
-.z-crud-table-header-row {
-  .cell {
-    display: flex;
-    align-items: center;
-  }
-}
-.z-crud-table-tooltip-popper {
-  max-width: 350px;
-}
 </style>
