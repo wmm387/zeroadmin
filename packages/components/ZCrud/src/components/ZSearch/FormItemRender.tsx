@@ -1,14 +1,15 @@
 import type { SearchColumn } from '../../types'
-import { DateRangePickerWithQuick, FuzzyOrMatchInput } from '@pkg/components'
+import { DateRangePicker, FuzzyOrMatchInput } from '@pkg/components'
+import { definePropType } from '@pkg/utils'
 import { ElFormItem, ElInput, ElOption, ElSelect } from 'element-plus'
-import { defineComponent, inject, type PropType, unref } from 'vue'
+import { defineComponent, inject, unref } from 'vue'
 import FormItemSlot from './FormItemSlot'
 
 const FormItemRender = defineComponent({
   name: 'FormItemRender',
   props: {
     item: {
-      type: Object as PropType<SearchColumn>,
+      type: definePropType<SearchColumn>(Object),
       default: () => { },
     },
   },
@@ -130,11 +131,7 @@ const FormItemRender = defineComponent({
     function genDateRangeRender(item: SearchColumn) {
       return (
         <ElFormItem {...item}>
-          <DateRangePickerWithQuick
-            v-model={searchForm[item.prop]}
-            has-shortcut
-            {...item.componentAttr}
-          />
+          <DateRangePicker v-model={searchForm[item.prop]} {...item.componentAttr} />
         </ElFormItem>
       )
     }

@@ -9,6 +9,7 @@ declare module 'vue' {
     Checkbox: typeof import('@wmm387/zeroadmin')['Checkbox']
     Radio: typeof import('@wmm387/zeroadmin')['Radio']
     Select: typeof import('@wmm387/zeroadmin')['Select']
+    DateRangePicker: typeof import('@wmm387/zeroadmin')['DateRangePicker']
     DateRangePickerWithQuick: typeof import('@wmm387/zeroadmin')['DateRangePickerWithQuick']
     EmojiPicker: typeof import('@wmm387/zeroadmin')['EmojiPicker']
     FuzzyOrMatchInput: typeof import('@wmm387/zeroadmin')['FuzzyOrMatchInput']
