@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useBreakpoints } from '@pkg/hooks'
+import { useBreakpoint } from '@pkg/hooks'
 import { ElButton, ElDropdown, ElDropdownItem, ElDropdownMenu, ElRadio, ElRadioButton, ElRadioGroup } from 'element-plus'
 import { get } from 'lodash-es'
 import { computed } from 'vue'
@@ -35,7 +35,7 @@ const getOptions = computed(() => {
   })
 })
 
-const { smallerThanSm } = useBreakpoints()
+const { smallerThanSm } = useBreakpoint()
 
 const modelValueLabel = computed(() => {
   return getOptions.value.find(item => item.value === modelValue.value)?.label

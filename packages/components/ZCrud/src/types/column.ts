@@ -6,7 +6,7 @@ export interface EditColumnType {
   always?: boolean
   disabled?: boolean | Fn<any, boolean>
   required?: boolean
-  rules?: FormItemRule| FormItemRule[]
+  rules?: FormItemRule | FormItemRule[]
   component: TableColumnEditComponentType
   componentAttr?: any
   updateFn?: (row: Recordable, column: Column, value: any) => any | Promise<any>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { type Ref, ref, watch } from 'vue'
-import { type DateModelType, ElDatePicker, ElOption, ElSelect } from 'element-plus'
 import { dateUtil, isEmpty, yesterday } from '@pkg/utils'
+import { type DateModelType, ElDatePicker, ElOption, ElSelect } from 'element-plus'
+import { type Ref, ref, watch } from 'vue'
 
 const { withTime = true, hasShortcut } = defineProps<{
   withTime?: boolean
@@ -179,8 +179,7 @@ const getAttr = (): Recordable => {
 
     .el-select__wrapper {
       border-radius: 0 4px 4px 0 !important;
-      box-shadow: -0.5px 0 0 1px
-        var(--el-input-border-color, var(--el-border-color)) inset;
+      box-shadow: -0.5px 0 0 1px var(--el-input-border-color, var(--el-border-color)) inset;
     }
 
     .el-select__caret {

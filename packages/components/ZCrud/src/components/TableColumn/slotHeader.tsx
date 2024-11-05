@@ -39,7 +39,7 @@ const renderHeader = (column: Column) => {
       </span>
     )
   } else {
-    const slots = {} as { prefix: any }
+    const slots = {} as { prefix: any, extend: any }
     if (column?.edit || column?.header?.edit || column?.header?.tooltip) {
       slots.prefix = () => {
         return (

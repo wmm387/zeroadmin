@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { SearchColumn } from '../../types'
+import { removeUndefined } from '@pkg/utils'
 import { ElButton, ElForm, ElFormItem } from 'element-plus'
 import { cloneDeep, defaultsDeep } from 'lodash-es'
 import { computed, provide, reactive, ref, unref, useSlots } from 'vue'
@@ -122,7 +123,7 @@ const reset = () => {
 }
 
 const getFieldsValue = () => {
-  return getSearchForm.value
+  return removeUndefined(getSearchForm.value)
 }
 
 const setFieldsValue = async values => {
@@ -159,7 +160,7 @@ defineExpose({
       @search="search"
     />
     <div :class="inlineBtn ? 'inline-block' : 'block'">
-      <ElFormItem :label-width="0">
+      <ElFormItem label-width="0">
         <ElButton type="primary" :loading="loading" @click="search">
           查询
         </ElButton>
