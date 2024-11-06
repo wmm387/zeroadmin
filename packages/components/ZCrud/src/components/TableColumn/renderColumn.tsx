@@ -1,5 +1,5 @@
-import type { PropType } from 'vue'
 import type { Column } from '../../types'
+import { definePropType } from '@pkg/utils'
 import { ElTableColumn } from 'element-plus'
 import { get } from 'lodash-es'
 import { defineComponent } from 'vue'
@@ -12,7 +12,7 @@ const RenderColumn = defineComponent({
   name: 'RenderColumn',
   props: {
     column: {
-      type: Object as PropType<Column>,
+      type: definePropType<Column>(Object),
       default: () => { },
     },
   },
@@ -118,6 +118,27 @@ const RenderColumn = defineComponent({
       return get(row, column.property, '--')
     }
 
+    // 点击事件表格列
+    const genClickColumn = (column: Column) => {
+      const formatter = column.formatter || commonformatter
+      return (
+        <ElTableColumn
+          {...column}
+          className="cursor-pointer text-primary"
+          v-slots={{
+            header: columnHeaderSlot(column),
+            default: ({ row, column: $column, $index }) => {
+              return (
+                <span onClick={() => column.click(row, $index)}>
+                  {formatter(row, $column) }
+                </span>
+              )
+            },
+          }}
+        />
+      )
+    }
+
     // 通用的表格
     const genCommonColumn = (column: Column) => {
       const formatter = column.formatter || commonformatter
@@ -147,6 +168,8 @@ const RenderColumn = defineComponent({
         return genChildren(column)
       } else if (column.type === 'expand') {
         return genExpand(column)
+      } else if (column?.click) {
+        return genClickColumn(column)
       } else {
         return genCommonColumn(column)
       }

@@ -1,9 +1,9 @@
-import { type PropType, defineComponent } from 'vue'
-import { ElImage, ElProgress, ElTableColumn, ElTag } from 'element-plus'
-import { get } from 'lodash-es'
+import type { Column } from '../../types/column'
 import { CopyText, TextColumn, TimeColumn } from '@pkg/components'
 import { isArray, isEmpty, isNullOrUnDef, time } from '@pkg/utils'
-import type { Column } from '../../types/column'
+import { ElButton, ElImage, ElProgress, ElTableColumn, ElTag } from 'element-plus'
+import { get } from 'lodash-es'
+import { defineComponent, type PropType } from 'vue'
 import columnHeaderSlot from './slotHeader'
 
 const RenderComponentColumn = defineComponent({
@@ -30,14 +30,35 @@ const RenderComponentColumn = defineComponent({
                 isNullOrUnDef(img) || isEmpty(img)
                   ? <span class="text-info">暂无图片</span>
                   : (
-                    <ElImage
-                      class="table-image"
-                      src={imageList[0]}
-                      preview-src-list={imageList}
-                      preview-teleported={true}
-                      fit="contain"
-                    />
+                      <ElImage
+                        class="table-image"
+                        src={imageList[0]}
+                        preview-src-list={imageList}
+                        preview-teleported={true}
+                        fit="contain"
+                      />
                     )
+              )
+            },
+          }}
+        />
+      )
+    }
+
+    // 单标签
+    const genTagColumn = (column: Column) => {
+      return (
+        <ElTableColumn
+          {...column}
+          showOverflowTooltip={false}
+          v-slots={{
+            header: columnHeaderSlot(column),
+            default: ({ row }) => {
+              const tag = column.componentAttr.getTag(row)
+              return (
+                <ElTag class="table-tag" type={tag.type} {...column.componentAttr}>
+                  {tag.label}
+                </ElTag>
               )
             },
           }}
@@ -195,14 +216,41 @@ const RenderComponentColumn = defineComponent({
             ),
           }}
         />
+      )
+    }
 
+    const formatter = (row, column: Column) => {
+      return column.formatter || get(row, column.prop, '--')
+    }
+
+    const genButtonColumn = (column: Column) => {
+      return (
+        <ElTableColumn
+          {...column}
+          showOverflowTooltip={false}
+          v-slots={{
+            header: columnHeaderSlot(column),
+            default: ({ row, $index }) => (
+              <ElButton
+                type="primary"
+                onclick={() => column.click(row, $index)}
+                {...column.componentAttr}
+              >
+                {formatter(row, column)}
+              </ElButton>
+            ),
+          }}
+        />
       )
     }
 
     const renderColumn = (column: Column) => {
       switch (column.component) {
         case 'image':
+        case 'img':
           return genImageColumn(column)
+        case 'tag':
+          return genTagColumn(column)
         case 'tags':
           return genTagsColumn(column)
         case 'yesOrNoTag':
@@ -212,13 +260,18 @@ const RenderComponentColumn = defineComponent({
         case 'times':
           return genTimesColumn(column)
         case 'copyText':
+        case 'copy':
           return genCopyTextColumn(column)
         case 'textColumn':
           return genTextColumn(column)
         case 'timeColumn':
+        case 'time':
           return genTimeColumn(column)
         case 'progress':
           return genProgressColumn(column)
+        case 'button':
+        case 'btn':
+          return genButtonColumn(column)
       }
     }
 

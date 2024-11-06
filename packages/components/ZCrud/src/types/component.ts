@@ -5,16 +5,17 @@ export type SearchColumnComponentType =
   | 'fuzzyInput'
 
 export type TableColumnComponentType =
-  | 'image'
+  | 'image' | 'img'
   | 'tag'
   | 'tags'
   | 'times'
   | 'yesOrNoTag'
   | 'onOrOffTag'
   | 'textColumn'
-  | 'copyText'
-  | 'timeColumn'
+  | 'copyText' | 'copy'
+  | 'timeColumn' | 'time'
   | 'progress'
+  | 'button' | 'btn'
 
 export type TableColumnEditComponentType =
   | 'trueFalseSwitch'

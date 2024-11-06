@@ -66,6 +66,7 @@ interface BaseColumn {
   align?: 'left' | 'center' | 'right'
   headerAlign?: 'left' | 'center' | 'right'
   showOverflowTooltip?: boolean
+  click?: (row?, index?) => any
   // 是否排序
   sortable?: boolean | 'custom'
   sort?: boolean | SortColumnOptions
