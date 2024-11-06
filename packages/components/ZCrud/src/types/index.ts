@@ -1,7 +1,7 @@
 import type { Column, EditColumnType, SortColumn } from './column'
-import type { ColumnDict, SearchColumn } from './search'
+import type { SearchColumn } from './search'
 
-export { Column, ColumnDict, EditColumnType, SearchColumn, SortColumn }
+export { Column, EditColumnType, SearchColumn, SortColumn }
 
 export interface FetchSetting {
   // 请求当前页数字段
@@ -181,8 +181,6 @@ export interface PaginationProps {
 export interface SearchRefType {
   // 搜索表单数据
   searchForm: Recordable
-  // 表格字典数据(例如: 下拉框options数据)
-  formDictData: Recordable
   setFieldsValue: (values: Recordable) => Promise<void>
   removeFieldsValue: (fields: string | string[]) => void
   resetFields: () => void

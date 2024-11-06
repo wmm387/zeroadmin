@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import type { SearchColumn } from '../../types'
-import { isArray, removeUndefined } from '@pkg/utils'
+import { isArray, isFunction, isString, removeUndefined } from '@pkg/utils'
 import { ElButton, ElForm, ElFormItem } from 'element-plus'
 import { cloneDeep, defaultsDeep } from 'lodash-es'
-import { computed, provide, reactive, ref, unref, useSlots } from 'vue'
-import { selectDictList } from '../../const'
+import { computed, isRef, provide, reactive, ref, unref, useSlots } from 'vue'
+import { selectOptions } from '../../const'
 import { defaultDateRangeField, defaultFuzzyInputAttr } from '../../defaultData'
 import FormItemRender from './FormItemRender'
 
@@ -25,27 +25,6 @@ const formRef = ref()
 const searchForm = reactive({})
 provide('zSearchForm', searchForm)
 
-const formDictData = reactive({})
-provide('zSearchFormDictData', formDictData)
-
-const handlerProps = (column: SearchColumn, tmpArr) => {
-  const data = {} as any
-  const tran = {}
-  const colors = {}
-  data.list = tmpArr.map(dicItem => {
-    const label = dicItem[column.dict?.props?.label || 'label']
-    const tmp = dicItem[column.dict?.props?.value || 'value']
-    const value = typeof tmp == 'boolean' ? `${tmp}` : tmp
-    tran[value] = label
-    return { label, value }
-  })
-  data.tran = tran
-  data.colors = colors
-  return data
-}
-
-const allowCoverFormType = ['radio', 'checkbox', 'select', 'transfer']
-
 const initFormData = (column: SearchColumn) => {
   switch (column.component) {
     case 'input':
@@ -61,7 +40,7 @@ const init = async () => {
   props.columns.forEach(async column => {
     column = defaultsDeep(column, props?.defaultOptions)
     if (!column?.component) {
-      if (column?.dict) {
+      if (column?.options) {
         column.component = 'select'
       } else if (!column?.slot) {
         column.component = 'input'
@@ -74,18 +53,16 @@ const init = async () => {
       // 加入模糊/精确搜索字段
       searchForm[column.fuzzyAttr.field] = column.fuzzyAttr.defaultValue ?? undefined
     }
-    if (column.dict && allowCoverFormType.includes(column.component)) {
-      if (column.dict.name) {
+    if (column?.options) {
+      if (isString(column.options)) {
         // 使用内置字典名称
-        const dict = selectDictList[column.dict.name] || []
-        formDictData[column.prop] = handlerProps(column, dict)
-      } else if (column.dict.api) {
-        // 使用接口
-        const { data } = await column.dict.api()
-        formDictData[column.prop] = handlerProps(column, data)
-      } else if (column.dict.data) {
-        // 使用数据
-        formDictData[column.prop] = handlerProps(column, column.dict.data)
+        column.options = selectOptions[column.options] || []
+      } else if (isFunction(column.options)) {
+        // 使用方法
+        column.options = await column.options()
+      } else if (isRef(column.options)) {
+        // 使用ref
+        column.options = unref(column.options)
       }
     }
   })
@@ -143,7 +120,6 @@ const resetFields = () => {
 
 defineExpose({
   searchForm,
-  formDictData,
   getFieldsValue,
   setFieldsValue,
   removeFieldsValue,

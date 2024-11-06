@@ -1,8 +1,8 @@
 import type { SearchColumn } from '../../types'
 import { DateRangePicker, FuzzyOrMatchInput } from '@pkg/components'
-import { definePropType } from '@pkg/utils'
+import { definePropType, isArray } from '@pkg/utils'
 import { ElFormItem, ElInput, ElOption, ElSelect } from 'element-plus'
-import { defineComponent, inject, unref } from 'vue'
+import { defineComponent, inject } from 'vue'
 import FormItemSlot from './FormItemSlot'
 
 const FormItemRender = defineComponent({
@@ -15,7 +15,6 @@ const FormItemRender = defineComponent({
   },
   setup(props, { emit }) {
     const searchForm = inject('zSearchForm') as any
-    const formDictData = inject('zSearchFormDictData') as any
 
     const search = () => {
       emit('search')
@@ -78,13 +77,7 @@ const FormItemRender = defineComponent({
     }
     // select
     function genSelectRender(item: SearchColumn) {
-      let refData = null
-      if (item.dict?.refData) {
-        refData = unref(item.dict.refData)
-      }
-      if (refData) {
-        return genRefDataSelectRender(refData, item)
-      }
+      const options = isArray(item.options) ? item.options : []
       return (
         <ElFormItem {...item}>
           <ElSelect
@@ -94,34 +87,8 @@ const FormItemRender = defineComponent({
             clearable={true}
             {...item.componentAttr}
           >
-            {formDictData[item.prop]?.list.map(option => (
-              <ElOption
-                key={option.value}
-                label={option.label}
-                value={option.value}
-              />
-            ))}
-          </ElSelect>
-        </ElFormItem>
-      )
-    }
-    // ref数据select
-    function genRefDataSelectRender(refData, item: SearchColumn) {
-      return (
-        <ElFormItem {...item}>
-          <ElSelect
-            v-model={searchForm[item.prop]}
-            placeholder={item.placeholder ?? `请选择${item.label}`}
-            filterable={true}
-            clearable={true}
-            {...item.componentAttr}
-          >
-            {refData?.map(option => (
-              <ElOption
-                key={option[item.dict?.props?.value || 'value']}
-                label={option[item.dict?.props?.label || 'label']}
-                value={option[item.dict?.props?.value || 'value']}
-              />
+            {options?.map(option => (
+              <ElOption key={option.value} label={option.label} value={option.value} />
             ))}
           </ElSelect>
         </ElFormItem>

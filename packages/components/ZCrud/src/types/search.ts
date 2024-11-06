@@ -1,24 +1,12 @@
 import type { Ref } from 'vue'
 import type { SearchColumnComponentType } from './component'
 
-export interface ColumnDict {
-  // 内置字典名称
-  name?: string
-  // 自定义api接口
-  api?: PromiseFn
-  // 直接设置字典值
-  data?: any
-  // ref值
-  refData?: Ref<any>
-  // 表格列的值是否翻译为字典对应标签
-  translation?: boolean
-  // 表格key 和 value的props设置
-  props?: {
-    label?: string
-    value?: string
-  }
-  tagColors?: Record<string, unknown>
-}
+type SelectColumnOptions =
+  | string
+  | Fn<any, LabelValueOptions>
+  | PromiseFn<any, LabelValueOptions>
+  | LabelValueOptions
+  | Ref<LabelValueOptions>
 
 export interface SearchColumn {
   prop: string
@@ -32,7 +20,7 @@ export interface SearchColumn {
   componentAttr?: any
   fuzzyAttr?: { field?: string, defaultValue?: number }
   dateRangeField?: { prefix?: string, start_at?: string, end_at?: string }
-  dict?: ColumnDict // 字典数据
+  options?: SelectColumnOptions
   labelWidth?: number
   rules?: any
   error?: string
