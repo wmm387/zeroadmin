@@ -1,8 +1,8 @@
-<script setup lang="ts">
+<script setup lang="tsx">
 import { demoApi } from '@/api'
+import { ZCrud } from '@pkg/components'
 import { useZCrud } from '@pkg/index'
-import { ElRule, option2Map } from '@pkg/utils'
-import { ref } from 'vue'
+import { ElRule, option2Map, toast } from '@pkg/utils'
 
 const options = [
   { label: 'PC', value: 1 },
@@ -11,8 +11,6 @@ const options = [
 ]
 const optionsMap = option2Map(options)
 
-const dialogRef = ref()
-
 const [register] = useZCrud(
   {
     options: {
@@ -20,14 +18,9 @@ const [register] = useZCrud(
       api: demoApi.list,
       pageFixed: true,
       actions: [
-        {
-          special: 'add',
-          handle: () => dialogRef.value.open(),
-        },
-        {
-          special: 'edit',
-          handle: row => dialogRef.value.open(row),
-        },
+        { special: 'create', handle: () => toast.success('创建') },
+        { special: 'update', handle: row => toast.success(row) },
+        { special: 'delete', handle: () => toast.warning('删除') },
       ],
     },
     searchColumns: [
@@ -43,7 +36,7 @@ const [register] = useZCrud(
       {
         label: '用户状态',
         prop: 'status',
-        dict: { name: 'onOrOff' },
+        options: 'onOrOff',
       },
       {
         label: '创建时间',
@@ -60,6 +53,7 @@ const [register] = useZCrud(
       {
         label: '姓名',
         prop: 'name',
+        click: () => toast.success('123'),
         minWidth: 100,
       },
       {
@@ -72,11 +66,13 @@ const [register] = useZCrud(
             { label: '性别', valueKey: 'gender' },
           ],
         },
+        sort: { label: '年龄' },
         width: 120,
       },
       {
         label: '地址',
         prop: 'address',
+        show: () => false,
         component: 'copyText',
         minWidth: 180,
       },
@@ -89,7 +85,8 @@ const [register] = useZCrud(
       {
         label: '热门',
         prop: 'is_hot',
-        component: 'yesOrNoTag',
+        component: 'button',
+        click: () => toast.success('123'),
         width: 100,
       },
       {
@@ -101,8 +98,8 @@ const [register] = useZCrud(
       {
         label: '生日',
         prop: 'birthday',
-        component: 'timeColumn',
         width: 120,
+        sort: { default: 'asc' },
       },
       {
         label: '渠道',
@@ -112,7 +109,7 @@ const [register] = useZCrud(
           component: 'select',
           componentAttr: { options },
         },
-        width: 150,
+        width: 120,
       },
       {
         label: '排序',
@@ -121,13 +118,13 @@ const [register] = useZCrud(
           component: 'numberInput',
           rules: ElRule.isPositiveInt(true),
         },
-        width: 150,
+        width: 120,
       },
       {
         label: '状态',
         prop: 'status',
         edit: { component: 'onOffSwitch' },
-        width: 150,
+        width: 120,
       },
       {
         label: '时间',

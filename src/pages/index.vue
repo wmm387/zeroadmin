@@ -4,7 +4,7 @@ import { ref } from 'vue'
 
 const currentItem = ref({
   checkboxList: [1, 2, 3],
-  radio: 1,
+  radio: 'android',
   select: 2,
   keyword: '',
   match: 0,
@@ -20,18 +20,23 @@ const options = [
   { label: 'H5', value: 2 },
   { label: '小程序', value: 3 },
 ]
+
+const platformList = [
+  { value: 'android', label: '安卓' },
+  { value: 'ios', label: 'iOS' },
+]
 </script>
 
 <template>
   <div
+    bg="#fbfbfb"
     p-4
     flexc-cc
     space-y-4
-    bg="#fbfbfb"
   >
     <Pagination :total="100" />
     <Checkbox v-model="currentItem.checkboxList" :options="options" button />
-    <Radio v-model="currentItem.radio" :options="options" />
+    <Radio v-model="currentItem.radio" :options="platformList" button />
     <Select v-model="currentItem.select" :options="options" w="!220px" />
     <FuzzyOrMatchInput v-model="currentItem.keyword" v-model:match="currentItem.match" />
     <NumberInput v-model="currentItem.number" style="width: 220px" />
@@ -44,6 +49,6 @@ const options = [
     <TextTooltipV2 content="https://cck-pms.oss-cn-shanghai.aliyuncs.com/certs/20240829/1724897558444_66cfd9166c59d.crt" />
     <TextTooltip content="省略号可以用于引文的省略，列举的省略，说话断断续续，也可以用于表示节省原文或语句未完、意思未尽等" />
     <TextTooltipV2 content="省略号可以用于引文的省略，列举的省略，说话断断续续，也可以用于表示节省原文或语句未完、意思未尽等" ellipsis-position="start" /> -->
-    <DateRangePickerWithQuick v-model="currentItem.dates" />
+    <DateRangePicker v-model="currentItem.dates" />
   </div>
 </template>
