@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { SearchColumn } from '../../types'
-import { removeUndefined } from '@pkg/utils'
+import { isArray, removeUndefined } from '@pkg/utils'
 import { ElButton, ElForm, ElFormItem } from 'element-plus'
 import { cloneDeep, defaultsDeep } from 'lodash-es'
 import { computed, provide, reactive, ref, unref, useSlots } from 'vue'
@@ -130,6 +130,13 @@ const setFieldsValue = async values => {
   Object.assign(searchForm, values)
 }
 
+const removeFieldsValue = (fields: string | string[]) => {
+  fields = isArray(fields) ? fields : [fields]
+  fields.forEach(field => {
+    Reflect.deleteProperty(searchForm, field)
+  })
+}
+
 const resetFields = () => {
   formRef.value.resetFields()
 }
@@ -139,6 +146,7 @@ defineExpose({
   formDictData,
   getFieldsValue,
   setFieldsValue,
+  removeFieldsValue,
   resetFields,
 })
 </script>

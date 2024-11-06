@@ -1,11 +1,20 @@
 <script setup lang="ts">
-import { computed, onMounted, provide, ref, unref, useSlots } from 'vue'
-import { useTimeoutFn } from '@vueuse/core'
 import type { TableInstance } from 'element-plus'
+import type {
+  Column,
+  Options,
+  SearchColumn,
+  SlotType,
+  TableActionType,
+  TablePropsType,
+} from './types'
+import { isDef } from '@pkg/utils'
+import { useTimeoutFn } from '@vueuse/core'
 import { ElCard, ElCollapseTransition, ElTable, ElTableColumn, ElTooltip } from 'element-plus'
 import { merge } from 'lodash-es'
-import { isDef } from '@pkg/utils'
-import { RenderColumn, ZActionButton, ZCrudSetting, ZSearch } from './components'
+import { computed, onMounted, provide, ref, unref, useSlots } from 'vue'
+import { RenderColumn, SortDropdown, ZActionButton, ZCrudSetting, ZSearch } from './components'
+import { defaultOptions } from './defaultData'
 import {
   useAction,
   useFetchData,
@@ -15,15 +24,6 @@ import {
   useTableColumn,
   useTableSort,
 } from './hooks'
-import { defaultOptions } from './defaultData'
-import type {
-  Column,
-  Options,
-  SearchColumn,
-  SlotType,
-  TableActionType,
-  TablePropsType,
-} from './types'
 
 interface PropsType {
   options?: Options
@@ -96,6 +96,7 @@ const {
   searchRef,
   getFieldsValue,
   setFieldsValue,
+  removeFieldsValue,
   resetFields,
 } = useSearch(getProps)
 
@@ -115,15 +116,17 @@ const { tableData, search, refresh } = useFetchData(
 const { getHeaderActions, getColumnActions } = useAction(getProps)
 
 const {
+  columnsRef,
   getColumns,
   getActionColumn,
-  getSortColumns,
   setColumns,
   toDefaultColumns,
 } = useTableColumn(getProps, getColumnActions, getPagination)
 
-const { handleHeaderClass, sortChange } = useTableSort(
-  getSortColumns,
+const { sortColumns, sortChange } = useTableSort(
+  columnsRef,
+  setFieldsValue,
+  removeFieldsValue,
   refresh,
   emit,
 )
@@ -152,6 +155,7 @@ const tableAction: Partial<TableActionType> = {
   toggleRowSelection,
   getFieldsValue,
   setFieldsValue,
+  removeFieldsValue,
   resetFields,
   emit,
 }
@@ -211,15 +215,13 @@ defineExpose({ refresh, setLoading })
             />
           </slot>
           <slot name="__after_table_header_action" />
-          <div
-            v-if="selectedRowRef.length"
-            class="ml-3 text-sm text-placeholder"
-          >
+          <div v-if="selectedRowRef.length" class="ml-3 text-sm text-placeholder">
             已选择 {{ selectedRowRef.length }} 项数据
           </div>
         </div>
         <div class="flex-cc">
           <slot name="__before_table_header_setting" />
+          <SortDropdown v-if="sortColumns?.length" :columns="sortColumns" @change="sortChange" />
           <ElTooltip content="刷新表格" placement="top">
             <div class="ml-5 cursor-pointer text-info" @click="refresh">
               <div i-ep-refresh-right />
@@ -262,7 +264,6 @@ defineExpose({ refresh, setLoading })
         class-name="z-crud-table"
         header-row-class-name="z-crud-table-header-row"
         cell-class-name="z-crud-table-cell"
-        :header-cell-class-name="handleHeaderClass"
         @selection-change="handleSelectionChange"
         @sort-change="sortChange"
       >
@@ -298,7 +299,7 @@ defineExpose({ refresh, setLoading })
         </ElTableColumn>
       </ElTable>
       <slot name="__after_table" />
-      <BasePagination
+      <Pagination
         v-if="getPagination"
         :page="getPagination.page"
         :page-size="getPagination.pageSize"

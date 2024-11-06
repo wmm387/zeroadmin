@@ -43,6 +43,8 @@ export function useSearch(propsRef: ComputedRef<TablePropsType>) {
 
   const setFieldsValue = (values: Recordable) => searchRef.value?.setFieldsValue(values)
 
+  const removeFieldsValue = (fields: string | string[]) => searchRef.value?.removeFieldsValue(fields)
+
   const resetFields = () => searchRef.value?.resetFields()
 
   return {
@@ -55,6 +57,7 @@ export function useSearch(propsRef: ComputedRef<TablePropsType>) {
     searchRef,
     getFieldsValue,
     setFieldsValue,
+    removeFieldsValue,
     resetFields,
   }
 }

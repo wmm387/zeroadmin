@@ -21,20 +21,20 @@ export function useFetchData(
     return Object.assign(defaultFetchSetting(), propsRef.value.options.fetchSetting)
   })
 
-  const fetchParams = reactive({})
+  let fetchParams = reactive({})
 
   const tableData = ref([])
   const total = ref()
 
   const initFetchParams = () => {
+    const searchForm = getFieldsValue()
+    if (!isEmpty(searchForm)) {
+      fetchParams = searchForm
+    }
     const paginationInfo = unref(getPagination)
     if (paginationInfo) {
       fetchParams[fetchSetting.value.pageField] = paginationInfo.page ?? 1
       fetchParams[fetchSetting.value.sizeField] = paginationInfo.pageSize
-    }
-    const searchForm = getFieldsValue()
-    if (!isEmpty(searchForm)) {
-      Object.assign(fetchParams, searchForm)
     }
     const { fetchParams: params } = unref(propsRef.value.options)
     if (!isEmpty(params)) {

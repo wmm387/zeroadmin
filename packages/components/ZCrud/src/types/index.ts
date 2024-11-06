@@ -1,7 +1,7 @@
-import type { Column, EditColumnType } from './column'
+import type { Column, EditColumnType, SortColumn } from './column'
 import type { ColumnDict, SearchColumn } from './search'
 
-export { Column, ColumnDict, EditColumnType, SearchColumn }
+export { Column, ColumnDict, EditColumnType, SearchColumn, SortColumn }
 
 export interface FetchSetting {
   // 请求当前页数字段
@@ -144,6 +144,7 @@ export interface TableActionType {
   toggleRowSelection: (row: Recordable, selected?: boolean) => void
   getFieldsValue: () => Recordable
   setFieldsValue: (values: Recordable) => Promise<void>
+  removeFieldsValue: (fields: string | string[]) => void
   resetFields: () => void
 
   expandAll: () => void
@@ -183,6 +184,7 @@ export interface SearchRefType {
   // 表格字典数据(例如: 下拉框options数据)
   formDictData: Recordable
   setFieldsValue: (values: Recordable) => Promise<void>
+  removeFieldsValue: (fields: string | string[]) => void
   resetFields: () => void
   getFieldsValue: () => Recordable
 }

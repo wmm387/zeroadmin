@@ -112,11 +112,6 @@ export function useTableColumn(
     }
   })
 
-  const getSortColumns = computed(() => {
-    const columns = cloneDeep(unref(propsRef).columns)
-    return columns.filter(i => i.sortable === 'custom')
-  })
-
   const setColumns = (columnList: Column[]) => {
     const columns = cloneDeep(columnList)
     storageLocal.setItem(storageKey.value, columns)
@@ -137,5 +132,5 @@ export function useTableColumn(
     },
   )
 
-  return { getColumns, getActionColumn, getSortColumns, setColumns, toDefaultColumns }
+  return { columnsRef, getColumns, getActionColumn, setColumns, toDefaultColumns }
 }

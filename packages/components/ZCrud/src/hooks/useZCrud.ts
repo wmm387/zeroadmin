@@ -88,6 +88,9 @@ export function useZCrud(props: TablePropsType, defaultOptions?: Partial<Options
     setFieldsValue: (values: Recordable) => {
       return getTableInstance().setFieldsValue(values)
     },
+    removeFieldsValue: (fields: string | string[]) => {
+      return getTableInstance().removeFieldsValue(fields)
+    },
     resetFields: () => {
       getTableInstance().resetFields()
     },

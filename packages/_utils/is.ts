@@ -65,6 +65,10 @@ export function isDefAndNotNull<T = unknown>(val: T): val is NonNullable<T> {
 export function isDefAndNotEmpty<T = unknown>(val: T): val is NonNullable<T> {
   return isDef(val) && !isEmpty(val)
 }
+/** 验证是否有效值 */
+export function isPayload(val: unknown) {
+  return isDef(val) && !isNull(val) && !isEmpty(val)
+}
 
 /** 是否是数字类型 */
 export function isNumber(val: unknown): val is number {

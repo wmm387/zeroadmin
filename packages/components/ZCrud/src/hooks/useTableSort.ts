@@ -1,41 +1,47 @@
-import type { ComputedRef } from 'vue'
-import type { Column } from '../types'
+import type { Ref } from 'vue'
+import type { Column, SortColumn } from '../types'
+import { isBoolean, isDef, isPayload } from '@pkg/utils'
+import { cloneDeep } from 'lodash-es'
+import { computed, unref } from 'vue'
 
-// 格式化ElTable排序值
-const formatElTableSortValue = (sort: string): string | null => {
-  if (sort === 'ascending') {
-    return 'asc'
-  } else if (sort === 'descending') {
-    return 'desc'
-  } else {
-    return null
-  }
-}
-
-export function useTableSort(getSortColumns: ComputedRef<Column[]>, refresh: Fn, emit: EmitType) {
-  // 设置列的排序改为我们自定义的排序
-  const handleHeaderClass = ({ column }) => {
-    column.order = column.multiOrder
-    return ''
-  }
+export function useTableSort(columnsRef: Ref<Column[]>, setFieldsValue: Fn, removeFieldsValue: Fn, refresh: Fn, emit: EmitType) {
+  const sortColumns = computed<SortColumn[]>(() => {
+    const columns = cloneDeep(unref(columnsRef))
+    return columns?.filter(i => i.sort)?.map(col => {
+      const sort = isBoolean(col.sort) ? {} : col.sort
+      const column = {
+        ...col,
+        sort: {
+          label: sort?.label || col.label,
+          prop: sort?.prop || col.prop,
+          order: isDef(sort?.order) ? sort?.order : (sort?.default || ''),
+          default: sort?.default || null,
+        },
+      }
+      if (isPayload(column.sort.order)) {
+        setFieldsValue({ [column.sort.prop]: column.sort.order })
+      } else {
+        removeFieldsValue(column.sort.prop)
+      }
+      return column
+    })
+  })
 
   // 列表排序
-  const sortChange = ({ column, order }) => {
-    // 将点击的排序赋给我们自定义排序字段multiOrder
-    column.multiOrder = order
-    // 格式化排序字段值
-    const formatOrder = formatElTableSortValue(column.multiOrder)
-    // 获取要排序的表格列,取出排序值并刷新数据
-    const sortColumn = getSortColumns.value.find(i => i.prop === column.property)
-    if (sortColumn) {
-      const sortProp = sortColumn?.sortableProp ?? sortColumn.prop
-      refresh({ [sortProp]: formatOrder })
-    }
-    emit('sortChange', {
-      prop: column.property,
-      order: formatOrder,
+  const sortChange = ({ prop, sort }) => {
+    columnsRef.value.forEach(col => {
+      if (col.prop === prop) {
+        col.sort = sort
+        if (isPayload(sort.order)) {
+          setFieldsValue({ [sort.prop]: sort.order })
+        } else {
+          removeFieldsValue(sort.prop)
+        }
+        refresh()
+        emit('sortChange', { prop, order: sort.order })
+      }
     })
   }
 
-  return { handleHeaderClass, sortChange }
+  return { sortColumns, sortChange }
 }

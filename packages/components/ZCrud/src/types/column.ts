@@ -40,6 +40,13 @@ interface RenderColumn {
   type?: 'selection' | 'index' | 'expand'
 }
 
+export interface SortColumnOptions {
+  prop?: string
+  label?: string
+  order?: null | string
+  default?: 'asc' | 'desc' | null
+}
+
 interface BaseColumn {
   label?: string
   prop?: string
@@ -61,8 +68,7 @@ interface BaseColumn {
   showOverflowTooltip?: boolean
   // 是否排序
   sortable?: boolean | 'custom'
-  // 排序字段名
-  sortableProp?: string
+  sort?: boolean | SortColumnOptions
   formatter?: (row?, column?, cellValue?, index?) => any
   selectable?: (row?, index?) => boolean
   // 数据刷新后是否保留选项，仅对  type=selection 的列有效， 请注意， 需指定 row-key 来让这个功能生效。
@@ -79,6 +85,10 @@ interface BaseColumn {
   // 拖拽排序
   _sort?: number
   edit?: EditColumnType
+}
+
+export interface SortColumn extends BaseColumn {
+  sort?: SortColumnOptions
 }
 
 type TColumn = PropColumn | TypeColumn | SlotColumn | RenderColumn
