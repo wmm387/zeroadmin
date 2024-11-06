@@ -65,10 +65,10 @@ export function useTableColumn(
     if (_storageData) {
       _storageData.forEach((item, index) => {
         const temp = { _sort: index } as any
-        item.width && (temp.width = item.width)
-        item.minWidth && (temp.minWidth = item.minWidth)
-        item.show && (temp.show = item.show)
-        item.fixed && (temp.fixed = item.fixed)
+        isDef(item.width) && (temp.width = item.width)
+        isDef(item.minWidth) && (temp.minWidth = item.minWidth)
+        isDef(item.show) && (temp.show = item.show)
+        isDef(item.fixed) && (temp.fixed = item.fixed)
         storageData[item.prop] = temp
       })
     }
@@ -77,7 +77,8 @@ export function useTableColumn(
     columns.forEach((item, index) => {
       item.prop = item.prop ?? item.slot ?? item.label
       item._sort = index
-      item.show = isDef(item.show) ? item.show : true
+      item.showDisabled = isFunction(item.show) ? true : item.showDisabled
+      item.show = isDef(item.show) ? isFunction(item.show) ? item.show() : item.show : true
       item.fixed = item.fixed ?? false
       item.align ?? (item.align = align)
       item.showOverflowTooltip ?? (item.showOverflowTooltip = showOverflowTooltip)

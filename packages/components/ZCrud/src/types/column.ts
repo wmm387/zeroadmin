@@ -50,7 +50,8 @@ export interface SortColumnOptions {
 interface BaseColumn {
   label?: string
   prop?: string
-  show?: boolean
+  show?: boolean | Fn<any, boolean>
+  showDisabled?: boolean
   slot?: string
   component?: TableColumnComponentType
   componentAttr?: any

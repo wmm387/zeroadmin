@@ -99,6 +99,7 @@ defineExpose({ open })
       <ElTableColumn v-slot="{ row }" label="是否展示" width="100">
         <TrueFalseSwitch
           v-model="row.show"
+          :disabled="row.showDisabled"
           boolean-value
           @change="changeColumn"
         />

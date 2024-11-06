@@ -2,11 +2,12 @@
 import { ElSwitch } from 'element-plus'
 import { computed } from 'vue'
 
-const { modelValue, onOff, booleanValue, color } = defineProps<{
+const { modelValue, onOff, booleanValue, color, disabled } = defineProps<{
   modelValue: number | string | boolean
   onOff?: boolean
   booleanValue?: boolean
   color?: '' | 'green' | 'orange' | 'purple'
+  disabled?: boolean
 }>()
 
 const emit = defineEmits(['change', 'update:modelValue'])
@@ -41,6 +42,7 @@ const getStyle = () => {
   <ElSwitch
     v-model="value"
     inline-prompt
+    :disabled="disabled"
     :active-text="activeText"
     :inactive-text="inactiveText"
     :active-value="activeValue"
