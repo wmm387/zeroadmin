@@ -48,7 +48,7 @@ const dropdownChange = value => {
 
 <template>
   <ElDropdown v-if="smallerThanSm && xs">
-    <ElButton type="primary">
+    <ElButton type="primary" :size="xs ? 'small' : 'default'">
       <div flex-cc>
         {{ modelValueLabel }}
         <div i-ep-arrow-down ml-2 />
