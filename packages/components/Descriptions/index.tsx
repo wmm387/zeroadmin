@@ -1,4 +1,4 @@
-import type { PropType } from 'vue'
+import { definePropType } from '@pkg/utils'
 import { ElDescriptions, ElDescriptionsItem } from 'element-plus'
 import { defineComponent, useSlots } from 'vue'
 
@@ -17,7 +17,7 @@ const Descriptions = defineComponent({
       required: true,
     },
     data: {
-      type: Array as PropType<DescData[]>,
+      type: definePropType<DescData[]>(Array),
       required: true,
     },
     title: {
@@ -39,6 +39,10 @@ const Descriptions = defineComponent({
           title={props.title}
           border={props.border}
           column={props.column}
+          v-slots={{
+            title: () => slots?.title ? slots?.title() : props.title,
+            extra: () => slots?.extra ? slots?.extra() : null,
+          }}
         >
           {props.data.map(item => (
             <ElDescriptionsItem
@@ -52,8 +56,7 @@ const Descriptions = defineComponent({
                   return slot ? slot(item) : (item.value ?? '--')
                 },
               }}
-            >
-            </ElDescriptionsItem>
+            />
           ))}
         </ElDescriptions>
       )
