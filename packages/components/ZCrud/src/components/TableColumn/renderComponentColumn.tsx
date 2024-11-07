@@ -15,6 +15,10 @@ const RenderComponentColumn = defineComponent({
     },
   },
   setup(props) {
+    const formatter = (row, column: Column) => {
+      return column.formatter || get(row, column.prop, '--')
+    }
+
     // 图片
     const genImageColumn = (column: Column) => {
       return (
@@ -54,10 +58,17 @@ const RenderComponentColumn = defineComponent({
           v-slots={{
             header: columnHeaderSlot(column),
             default: ({ row }) => {
-              const tag = column.componentAttr.getTag(row)
+              const value = formatter(row, column)
+              let tag = { type: 'info', label: value }
+              if (column.componentAttr?.tagMap) {
+                tag = column.componentAttr.tagMap[value]
+              }
+              if (column.componentAttr?.getTag) {
+                tag = column.componentAttr.getTag(row)
+              }
               return (
-                <ElTag class="table-tag" type={tag.type} {...column.componentAttr}>
-                  {tag.label}
+                <ElTag class="table-tag" type={tag?.type}>
+                  {tag?.label}
                 </ElTag>
               )
             },
@@ -217,10 +228,6 @@ const RenderComponentColumn = defineComponent({
           }}
         />
       )
-    }
-
-    const formatter = (row, column: Column) => {
-      return column.formatter || get(row, column.prop, '--')
     }
 
     const genButtonColumn = (column: Column) => {
