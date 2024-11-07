@@ -1,6 +1,6 @@
 import type { ComputedRef } from 'vue'
 import type { PaginationProps, TablePropsType } from '../types'
-import { isEmpty, isFunction } from '@pkg/utils'
+import { isFunction, isPayload } from '@pkg/utils'
 import { get } from 'lodash-es'
 import { computed, reactive, ref, unref } from 'vue'
 import { defaultFetchSetting } from '../defaultData'
@@ -28,7 +28,7 @@ export function useFetchData(
 
   const initFetchParams = () => {
     const searchForm = getFieldsValue()
-    if (!isEmpty(searchForm)) {
+    if (isPayload(searchForm)) {
       fetchParams = searchForm
     }
     const paginationInfo = unref(getPagination)
@@ -37,7 +37,7 @@ export function useFetchData(
       fetchParams[fetchSetting.value.sizeField] = paginationInfo.pageSize
     }
     const { fetchParams: params } = unref(propsRef.value.options)
-    if (!isEmpty(params)) {
+    if (isPayload(params)) {
       Object.assign(fetchParams, params)
     }
   }
@@ -84,7 +84,7 @@ export function useFetchData(
   }
 
   const refresh = (formData?: any) => {
-    !isEmpty(formData) && Object.assign(fetchParams, formData)
+    isPayload(formData) && Object.assign(fetchParams, formData)
     fetchTableData()
   }
 
