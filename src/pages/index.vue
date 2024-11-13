@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { Pagination } from '@pkg/components'
+import type { DescriptionItem } from '@pkg/index'
+import { Descriptions, Pagination } from '@pkg/components'
 import { ref } from 'vue'
 
 const currentItem = ref({
@@ -24,6 +25,31 @@ const options = [
 const platformList = [
   { value: 'android', label: '安卓' },
   { value: 'ios', label: 'iOS' },
+]
+
+const descData: DescriptionItem[] = [
+  {
+    label: '名称',
+    value: '测试',
+  },
+  {
+    label: '类型',
+    value: '测试',
+  },
+  {
+    label: '状态',
+    value: '测试',
+  },
+  {
+    label: '创建时间',
+    value: '测试',
+    span: 2,
+  },
+  {
+    label: '创建时间',
+    value: '测试',
+    slot: 'tags',
+  },
 ]
 </script>
 
@@ -50,5 +76,15 @@ const platformList = [
     <TextTooltip content="省略号可以用于引文的省略，列举的省略，说话断断续续，也可以用于表示节省原文或语句未完、意思未尽等" />
     <TextTooltipV2 content="省略号可以用于引文的省略，列举的省略，说话断断续续，也可以用于表示节省原文或语句未完、意思未尽等" ellipsis-position="start" /> -->
     <DateRangePicker v-model="currentItem.dates" />
+    <Descriptions
+      :column="3"
+      :data="descData"
+      w-xl
+      title="Title"
+    >
+      <template #extra>
+        <span>额外</span>
+      </template>
+    </Descriptions>
   </div>
 </template>

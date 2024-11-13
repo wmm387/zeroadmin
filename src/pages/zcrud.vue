@@ -3,6 +3,7 @@ import { demoApi } from '@/api'
 import { ZCrud } from '@pkg/components'
 import { useZCrud } from '@pkg/index'
 import { ElRule, option2Map, toast } from '@pkg/utils'
+import { onMounted, ref } from 'vue'
 
 const options = [
   { label: 'PC', value: 1 },
@@ -10,6 +11,13 @@ const options = [
   { label: '小程序', value: 3 },
 ]
 const optionsMap = option2Map(options)
+
+const genderList = ref([])
+const getGenderList = async () => {
+  const { data } = await demoApi.genderList()
+  genderList.value = data
+  return data
+}
 
 const [register] = useZCrud(
   {
@@ -37,6 +45,11 @@ const [register] = useZCrud(
         label: '用户状态',
         prop: 'status',
         options: 'onOrOff',
+      },
+      {
+        label: '性别',
+        prop: 'gender',
+        options: getGenderList,
       },
       {
         label: '创建时间',

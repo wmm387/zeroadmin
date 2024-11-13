@@ -1,5 +1,11 @@
 import { random } from '@pkg/utils'
 
+interface Res<T = any> {
+  code: number
+  msg: string
+  data: T
+}
+
 const list = Array.from({ length: 100 }, (v, k) => {
   const age = random(16, 66)
   const birthday = new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 365 * age).toISOString().split('T')[0]
@@ -52,4 +58,24 @@ export const demoApi = {
     //   },
     // }
   },
+  genderList: async (): Promise<Res> =>
+    new Promise((resolve) => {
+      setTimeout(() => {
+        resolve({
+          code: 0,
+          msg: 'success',
+          data: [
+            {
+              label: '男',
+              value: 1,
+            },
+            {
+              label: '女',
+              value: 2,
+            },
+          ],
+        })
+      }, 500)
+    }),
+
 }
