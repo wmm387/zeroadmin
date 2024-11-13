@@ -201,7 +201,8 @@ const RenderComponentColumn = defineComponent({
       )
     }
 
-    const progressColor = (percentage: number): string => {
+    const progressColor = (percentage: number | string): string => {
+      percentage = Number(percentage)
       if (percentage < 30) {
         return '#909399'
       }
