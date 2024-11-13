@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import type { SearchColumn } from '../../types'
-import { isArray, isFunction, isString, removeUndefined } from '@pkg/utils'
+import { isArray, removeUndefined } from '@pkg/utils'
 import { ElButton, ElForm, ElFormItem } from 'element-plus'
 import { cloneDeep, defaultsDeep } from 'lodash-es'
-import { computed, isRef, provide, reactive, ref, unref, useSlots } from 'vue'
-import { selectOptions } from '../../const'
+import { computed, provide, reactive, ref, unref, useSlots } from 'vue'
 import { defaultDateRangeField, defaultFuzzyInputAttr } from '../../defaultData'
 import FormItemRender from './FormItemRender'
 
@@ -52,18 +51,6 @@ const init = async () => {
       column.fuzzyAttr = defaultsDeep({}, column?.fuzzyAttr, defaultFuzzyInputAttr)
       // 加入模糊/精确搜索字段
       searchForm[column.fuzzyAttr.field] = column.fuzzyAttr.defaultValue ?? undefined
-    }
-    if (column?.options) {
-      if (isString(column.options)) {
-        // 使用内置字典名称
-        column.options = selectOptions[column.options] || []
-      } else if (isFunction(column.options)) {
-        // 使用方法
-        column.options = await column.options()
-      } else if (isRef(column.options)) {
-        // 使用ref
-        column.options = unref(column.options)
-      }
     }
   })
 }

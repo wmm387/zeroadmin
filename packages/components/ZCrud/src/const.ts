@@ -28,7 +28,7 @@ export const onOrOff_B = [
   { value: false, label: '关' },
 ]
 
-export const selectOptions = {
+export const selectOptionsConst = {
   yesOrNo,
   yesOrNo_B,
   trueOrFalse,
