@@ -156,6 +156,17 @@ export const formatSeconds = (value, fractionDigits?: number) => {
  * @returns {number} 今天零时时间戳
  */
 export const todayUnix = (ms = false) => {
-  const unix = dateUtil(today()).unix()
+  const unix = dayjs(today()).unix()
   return ms ? unix * 1000 : unix
+}
+
+/**
+ * 计算两个日期之间的差值
+ * @param start
+ * @param end
+ * @param unit
+ * @returns {number}
+ */
+export const diffDate = (start: number | string, end: number | string, unit = 'day' as any) => {
+  return dayjs(start).diff(end, unit)
 }
