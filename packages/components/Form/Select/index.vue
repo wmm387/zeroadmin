@@ -14,6 +14,7 @@ interface PropsType {
   objectValue?: boolean
   valueKey?: string
   widthFull?: boolean
+  loading?: boolean
   labelFormatter?: (option: any) => string | number
   valueFormatter?: (option: any) => any
   disabledFormatter?: (option: any) => boolean
@@ -30,6 +31,7 @@ const {
   multiple = false,
   objectValue = false,
   widthFull = true,
+  loading,
   valueKey,
   labelFormatter,
   valueFormatter,
@@ -65,7 +67,9 @@ const getOptions = computed(() => {
     :filterable="filterable"
     :clearable="clearable"
     :multiple="multiple"
+    :loading="loading"
     :class="{ 'w-full': widthFull }"
+    popper-class="z-select-popper"
   >
     <template #empty>
       <slot name="empty">
@@ -85,5 +89,67 @@ const getOptions = computed(() => {
         {{ item.label }}
       </slot>
     </ElOption>
+    <template #loading>
+      <svg class="circular" viewBox="0 0 50 50">
+        <circle
+          class="path"
+          cx="25"
+          cy="25"
+          r="20"
+          fill="none"
+        />
+      </svg>
+    </template>
   </ElSelect>
 </template>
+
+<style lang="scss">
+.z-select-popper {
+  .el-select-dropdown__loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    height: 100px;
+
+    .circular {
+      display: inline;
+      height: 30px;
+      width: 30px;
+      animation: loading-rotate 2s linear infinite;
+    }
+
+    .path {
+      animation: loading-dash 1.5s ease-in-out infinite;
+      stroke-dasharray: 90, 150;
+      stroke-dashoffset: 0;
+      stroke-width: 2;
+      stroke: var(--el-color-primary);
+      stroke-linecap: round;
+    }
+  }
+}
+
+@keyframes loading-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes loading-dash {
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+  }
+
+  50% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -40px;
+  }
+
+  100% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -120px;
+  }
+}
+</style>
