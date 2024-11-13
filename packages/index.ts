@@ -26,4 +26,5 @@ export const ZeroAdmin = { install }
 export default ZeroAdmin
 
 export * from './components'
+export type { DescriptionData } from './components/Descriptions'
 export * from './components/ZCrud'

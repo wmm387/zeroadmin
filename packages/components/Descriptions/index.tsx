@@ -2,10 +2,11 @@ import { definePropType } from '@pkg/utils'
 import { ElDescriptions, ElDescriptionsItem } from 'element-plus'
 import { defineComponent, useSlots } from 'vue'
 
-interface DescData {
+export interface DescriptionData {
   label: string
   value: any
   slot?: string
+  span?: number
   rowspan?: number
 }
 
@@ -17,7 +18,7 @@ const Descriptions = defineComponent({
       required: true,
     },
     data: {
-      type: definePropType<DescData[]>(Array),
+      type: definePropType<DescriptionData[]>(Array),
       required: true,
     },
     title: {
@@ -48,6 +49,7 @@ const Descriptions = defineComponent({
             <ElDescriptionsItem
               key={item.label}
               label={item.label}
+              span={item.span}
               rowspan={item.rowspan}
               width={cellWidth}
               v-slots={{
