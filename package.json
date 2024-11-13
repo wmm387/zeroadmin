@@ -24,8 +24,8 @@
       "import": "./dist/hooks.js",
       "require": "./dist/hooks.cjs"
     },
-    "./volar": {
-      "types": "./volar.d.ts"
+    "./client": {
+      "types": "./client.d.ts"
     },
     "./*": "./*"
   },
@@ -44,14 +44,14 @@
       "hooks": [
         "./dist/types/hooks.d.ts"
       ],
-      "volar": [
-        "./volar.d.ts"
+      "client": [
+        "./client.d.ts"
       ]
     }
   },
   "files": [
-    "dist",
-    "volar.d.ts"
+    "client.d.ts",
+    "dist"
   ],
   "scripts": {
     "d": "vite --host",
