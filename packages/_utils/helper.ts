@@ -117,7 +117,13 @@ export function sleep(ms) {
   })
 }
 
-/** 格式化下拉框选择项 */
+/**
+ * 格式化下拉框选择项
+ * @param list 列表
+ * @param labelField label字段名, 默认name
+ * @param valueField value字段名, 默认id
+ * @returns
+ */
 export const formatSelectOptions = (list: Recordable[], labelField = 'name', valueField = 'id') => {
   return list.map(item => ({
     label: get(item, labelField),
