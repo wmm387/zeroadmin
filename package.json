@@ -56,7 +56,7 @@
   "scripts": {
     "d": "vite --host",
     "b": "vite build && vue-tsc -p tsconfig.lib.json",
-    "rel": "bumpp",
+    "rel": "bumpp --no-push",
     "tsc": "tsc --noEmit && vue-tsc --noEmit --skipLibCheck",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",

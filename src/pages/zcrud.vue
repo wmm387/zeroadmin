@@ -33,7 +33,7 @@ const [register] = useZCrud(
     },
     searchColumns: [
       {
-        label: '模糊搜索',
+        label: '关键字',
         prop: 'fuzzy',
         component: 'fuzzyInput',
       },
