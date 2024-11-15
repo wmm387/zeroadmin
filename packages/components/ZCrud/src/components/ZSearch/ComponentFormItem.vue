@@ -15,11 +15,11 @@ const searchForm = inject('zSearchForm') as any
 const getCompAttr = () => {
   const attrs: Recordable = {}
   if (['input', 'fuzzyInput'].includes(item.component)) {
-    attrs.placeholder = `请输入${item.label}`
+    attrs.placeholder = item.placeholder ?? `请输入${item.label}`
     attrs.onKeyup = e => e.keyCode === 13 && emit('search')
     attrs.clearable = true
   } else if (item.component === 'select') {
-    attrs.placeholder = `请选择${item.label}`
+    attrs.placeholder = item.placeholder ?? `请选择${item.label}`
     attrs.filterable = true
     attrs.clearable = true
     attrs.options = []
