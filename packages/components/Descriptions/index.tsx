@@ -34,35 +34,33 @@ const Descriptions = defineComponent({
     const slots = useSlots()
     const cellWidth = `${50 / props.column}%`
 
-    return () => {
-      return (
-        <ElDescriptions
-          title={props.title}
-          border={props.border}
-          column={props.column}
-          v-slots={{
-            title: () => slots?.title ? slots?.title() : props.title,
-            extra: () => slots?.extra ? slots?.extra() : null,
-          }}
-        >
-          {props.data.map(item => (
-            <ElDescriptionsItem
-              key={item.label}
-              label={item.label}
-              span={item.span}
-              rowspan={item.rowspan}
-              width={cellWidth}
-              v-slots={{
-                default: () => {
-                  const slot = slots?.[item.slot] as any
-                  return slot ? slot(item) : (item.value ?? '--')
-                },
-              }}
-            />
-          ))}
-        </ElDescriptions>
-      )
-    }
+    return () => (
+      <ElDescriptions
+        title={props.title}
+        border={props.border}
+        column={props.column}
+        v-slots={{
+          ...slots,
+          default: () => (
+            props.data.map(item => (
+              <ElDescriptionsItem
+                key={item.label}
+                label={item.label}
+                span={item.span}
+                rowspan={item.rowspan}
+                width={cellWidth}
+                v-slots={{
+                  default: () => {
+                    const slot = slots?.[item.slot] as any
+                    return slot ? slot(item) : (item.value ?? '--')
+                  },
+                }}
+              />
+            ))
+          ),
+        }}
+      />
+    )
   },
 })
 
