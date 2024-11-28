@@ -13,6 +13,7 @@ export type TableColumnComponentType =
   | 'onOrOffTag'
   | 'textColumn'
   | 'copyText' | 'copy'
+  | 'date'
   | 'timeColumn' | 'time'
   | 'progress'
   | 'button' | 'btn'

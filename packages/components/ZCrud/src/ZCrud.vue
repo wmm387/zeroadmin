@@ -157,6 +157,7 @@ const tableAction: Partial<TableActionType> = {
   setFieldsValue,
   removeFieldsValue,
   resetFields,
+  getTableData: () => unref(tableData),
   emit,
 }
 

@@ -146,7 +146,7 @@ export interface TableActionType {
   setFieldsValue: (values: Recordable) => Promise<void>
   removeFieldsValue: (fields: string | string[]) => void
   resetFields: () => void
-
+  getTableData: () => Recordable[]
   expandAll: () => void
   expandRows: (keys: string[] | number[]) => void
   collapseAll: () => void

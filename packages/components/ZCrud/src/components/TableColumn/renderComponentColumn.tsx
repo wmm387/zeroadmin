@@ -186,7 +186,7 @@ const RenderComponentColumn = defineComponent({
       )
     }
 
-    const genTimeColumn = (column: Column) => {
+    const genTimeColumn = (column: Column, type = 'time') => {
       return (
         <ElTableColumn
           {...column}
@@ -194,7 +194,7 @@ const RenderComponentColumn = defineComponent({
           v-slots={{
             header: columnHeaderSlot(column),
             default: ({ row }) => (
-              <TimeColumn timeStr={get(row, column.prop)} />
+              <TimeColumn timeStr={get(row, column.prop)} type={type} />
             ),
           }}
         />
@@ -275,6 +275,8 @@ const RenderComponentColumn = defineComponent({
         case 'timeColumn':
         case 'time':
           return genTimeColumn(column)
+        case 'date':
+          return genTimeColumn(column, 'date')
         case 'progress':
           return genProgressColumn(column)
         case 'button':

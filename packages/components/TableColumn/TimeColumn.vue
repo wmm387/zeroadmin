@@ -2,10 +2,13 @@
 import { time } from '@pkg/utils'
 import { computed } from 'vue'
 
-const props = defineProps<{ timeStr?: string }>()
+const { timeStr, type = 'time' } = defineProps<{
+  timeStr?: string
+  type?: 'time' | 'date'
+}>()
 
 const timeArr = computed(() => {
-  return time(props.timeStr).split(' ')
+  return time(timeStr).split(' ')
 })
 </script>
 
@@ -13,7 +16,9 @@ const timeArr = computed(() => {
   <div>
     <div v-if="timeStr">
       <div>{{ timeArr[0] }}</div>
-      <div>{{ timeArr[1] }}</div>
+      <div v-if="type === 'time'">
+        {{ timeArr[1] }}
+      </div>
     </div>
     <div v-else>
       {{ timeStr ?? '--' }}

@@ -94,6 +94,9 @@ export function useZCrud(props: TablePropsType, defaultOptions?: Partial<Options
     resetFields: () => {
       getTableInstance().resetFields()
     },
+    getTableData: () => {
+      return getTableInstance().getTableData()
+    },
     // redoHeight: () => {
     //   getTableInstance().redoHeight()
     // },
