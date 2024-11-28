@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ElButton } from 'element-plus'
 import { TextTooltip } from '@pkg/components'
 import { useCopy } from '@pkg/hooks'
+import { ElButton } from 'element-plus'
 
-defineProps<{ content?: string }>()
+defineProps<{ content?: string | number }>()
 
 const { copy } = useCopy()
 </script>

@@ -4,16 +4,18 @@ import { ElTooltip } from 'element-plus'
 import { computed, nextTick, onMounted, ref, useSlots, watch } from 'vue'
 
 const { content, ellipsisPosition = 'end' } = defineProps<{
-  content?: string
+  content?: string | number
   ellipsisPosition?: 'start' | 'middle' | 'end'
 }>()
+
+const _content = computed(() => content?.toString() || '')
 
 const slots = useSlots()
 const hasPrefix = computed(() => Object.keys(slots).includes('prefix'))
 const hasExtend = computed(() => Object.keys(slots).includes('extend'))
 
 const disabled = ref(true)
-const text = ref(content)
+const text = ref(_content.value)
 const rootRef = ref<HTMLElement>()
 
 // 克隆容器元素，并设置样式以进行省略计算
@@ -29,7 +31,7 @@ const cloneContainer = () => {
   container.style.height = 'auto'
   container.style.minHeight = 'auto'
   container.style.maxWidth = 'auto'
-  container.textContent = content || ''
+  container.textContent = _content.value || ''
   document.body.appendChild(container)
   return container
 }
@@ -37,24 +39,24 @@ const cloneContainer = () => {
 // 计算省略文本
 const calcEllipsisText = (container: HTMLDivElement, maxWidth: number) => {
   const dots = '...'
-  const end = content.length
+  const end = _content.value.length
   const middle = (0 + end) >> 1
 
   const calcStartOrEnd = (left: number, right: number): string => {
     if (right - left <= 1) {
       if (ellipsisPosition === 'end') {
-        return content.slice(0, left) + dots
+        return _content.value.slice(0, left) + dots
       }
-      return dots + content.slice(right, end)
+      return dots + _content.value.slice(right, end)
     }
 
     const middle = Math.round((left + right) / 2)
 
     // 设置截断位置
     if (ellipsisPosition === 'end') {
-      container.textContent = content.slice(0, middle) + dots
+      container.textContent = _content.value.slice(0, middle) + dots
     } else {
-      container.textContent = dots + content.slice(middle, end)
+      container.textContent = dots + _content.value.slice(middle, end)
     }
 
     // 截断后宽度仍不符合要求
@@ -74,13 +76,13 @@ const calcEllipsisText = (container: HTMLDivElement, maxWidth: number) => {
 
   const calcMiddle = (leftPart: [number, number], rightPart: [number, number]): string => {
     if (leftPart[1] - leftPart[0] <= 1 && rightPart[1] - rightPart[0] <= 1) {
-      return content.slice(0, leftPart[0]) + dots + content.slice(rightPart[1], end)
+      return _content.value.slice(0, leftPart[0]) + dots + _content.value.slice(rightPart[1], end)
     }
 
     const leftMiddle = Math.floor((leftPart[0] + leftPart[1]) / 2)
     const rightMiddle = Math.ceil((rightPart[0] + rightPart[1]) / 2)
 
-    container.textContent = content.slice(0, leftMiddle) + dots + content.slice(rightMiddle, end)
+    container.textContent = _content.value.slice(0, leftMiddle) + dots + _content.value.slice(rightMiddle, end)
 
     if (container.scrollWidth > maxWidth) {
       return calcMiddle([leftPart[0], leftMiddle], [rightMiddle, rightPart[1]])
@@ -95,7 +97,7 @@ const calcEllipsisText = (container: HTMLDivElement, maxWidth: number) => {
 const calcEllipsis = async () => {
   const container = cloneContainer()
   if (!container) return
-  container.textContent = content || ''
+  container.textContent = _content.value || ''
   await nextTick()
   const maxWidth = container.clientWidth
   if (container.scrollWidth > maxWidth) {
@@ -103,7 +105,7 @@ const calcEllipsis = async () => {
     text.value = calcEllipsisText(container, maxWidth)
   } else {
     disabled.value = true
-    text.value = content
+    text.value = _content.value
   }
   document.body.removeChild(container)
 }
@@ -111,9 +113,9 @@ const calcEllipsis = async () => {
 const { width } = useWindowSize()
 
 watch(
-  () => [content, width.value],
+  () => [_content.value, width.value],
   () => {
-    text.value = content
+    text.value = _content.value
     nextTick(calcEllipsis)
   },
 )
@@ -125,7 +127,7 @@ onMounted(() => {
 
 <template>
   <div
-    v-if="content"
+    v-if="_content"
     max-w-fit
     w-full
     flex-sc
@@ -135,8 +137,8 @@ onMounted(() => {
       effect="dark"
       placement="top"
       popper-class="max-w-500px"
-      :content="content"
-      :disabled="disabled"
+      :content="_content"
+      :disabled
     >
       <div
         ref="rootRef"

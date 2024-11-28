@@ -2,7 +2,9 @@
 import { ElTooltip } from 'element-plus'
 import { computed, ref, useSlots } from 'vue'
 
-defineProps<{ content?: string }>()
+const { content } = defineProps<{ content?: string | number }>()
+
+const _content = computed(() => content?.toString() || '')
 
 const slots = useSlots()
 const hasPrefix = computed(() => Object.keys(slots).includes('prefix'))
@@ -28,7 +30,7 @@ const mouseleave = () => {
 
 <template>
   <div
-    v-if="content"
+    v-if="_content"
     max-w-fit
     w-full
     flex-sc
@@ -38,12 +40,12 @@ const mouseleave = () => {
       effect="dark"
       placement="top"
       popper-class="max-w-500px"
-      :content="content"
+      :content="_content"
       :visible="visible"
     >
       <div truncate :class="{ 'ml-1': hasPrefix, 'mr-1': hasExtend }">
         <span @mouseenter="mouseenter" @mouseleave="mouseleave">
-          <slot>{{ content }}</slot>
+          <slot>{{ _content }}</slot>
         </span>
       </div>
     </ElTooltip>
