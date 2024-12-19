@@ -37,7 +37,7 @@ const change = (item, value) => {
       </ElButton>
     </template>
     <div space-y-3>
-      <div v-for="col in columns" :key="col.prop" flex-sc>
+      <div v-for="col in columns" :key="col.prop" flex-ec>
         <label>{{ col.sort?.label }}：</label>
         <Radio
           v-model="col.sort.order"
