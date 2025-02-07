@@ -1,7 +1,7 @@
 {
   "name": "@wmm387/zeroadmin",
   "type": "module",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "packageManager": "pnpm@10.2.1",
   "author": "Zero (https://github.com/wmm387)",
   "keywords": [
