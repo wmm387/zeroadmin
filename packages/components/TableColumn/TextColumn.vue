@@ -43,14 +43,17 @@ const mouseleave = () => {
       <span @mouseenter="mouseenter" @mouseleave="mouseleave">
         <span v-if="label" mr-1 text-info>{{ label }}:</span>
         <slot>
-          <span
-            v-if="copied"
-            title="点击复制"
-            cursor-pointer
-            text-success
-            @click="copy(value)"
-          >{{ value || '--' }}</span>
-          <span v-else>{{ value || '--' }}</span>
+          <template v-if="value">
+            <span
+              v-if="copied"
+              title="点击复制"
+              cursor-pointer
+              text-success
+              @click="copy(value)"
+            >{{ value }}</span>
+            <span v-else>{{ value }}</span>
+          </template>
+          <span v-else>--</span>
         </slot>
       </span>
     </div>

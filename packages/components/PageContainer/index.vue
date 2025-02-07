@@ -28,10 +28,7 @@ const hasFooter = computed(() => {
         </div>
       </ElScrollbar>
     </ElMain>
-    <ElFooter
-      class="footer-wrap bg-white-d"
-      :style="{ height: hasFooter ? '48px' : '0' }"
-    >
+    <ElFooter class="footer-wrap bg-white-d" :style="{ height: hasFooter ? '48px' : '0' }">
       <slot name="footer" />
     </ElFooter>
   </ElContainer>

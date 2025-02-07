@@ -124,13 +124,12 @@ const RenderColumn = defineComponent({
       return (
         <ElTableColumn
           {...column}
-          className="cursor-pointer text-primary"
           v-slots={{
             header: columnHeaderSlot(column),
             default: ({ row, column: $column, $index }) => {
               return (
-                <span onClick={() => column.click(row, $index)}>
-                  {formatter(row, $column) }
+                <span class="cursor-pointer text-primary" onClick={() => column.click(row, $index)}>
+                  {formatter(row, $column)}
                 </span>
               )
             },
@@ -156,18 +155,18 @@ const RenderColumn = defineComponent({
     }
 
     function renderColumn(column: Column) {
-      if (column.render && column.type !== 'expand') {
-        return genRender(column)
+      if (column.type === 'expand') {
+        return genExpand(column)
       } else if (column.component) {
         return getComponent(column)
-      } else if (column.slot && column.type !== 'expand') {
+      } else if (column.slot) {
         return genSlot(column)
       } else if (column.edit) {
         return genEditableColumn(column)
       } else if (column.children) {
         return genChildren(column)
-      } else if (column.type === 'expand') {
-        return genExpand(column)
+      } else if (column.render) {
+        return genRender(column)
       } else if (column?.click) {
         return genClickColumn(column)
       } else {

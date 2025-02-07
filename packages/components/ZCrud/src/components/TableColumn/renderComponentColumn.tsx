@@ -110,13 +110,13 @@ const RenderComponentColumn = defineComponent({
             default: ({ row }) => {
               const flag = !!get(row, column.prop)
               return (
-                <>
+                <div>
                   {
                     flag
                       ? (<ElTag type="success">{onOrOff ? '开' : '是'}</ElTag>)
                       : (<ElTag type="info">{onOrOff ? '关' : '否'}</ElTag>)
                   }
-                </>
+                </div>
               )
             },
           }}

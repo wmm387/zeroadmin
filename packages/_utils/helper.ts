@@ -213,3 +213,12 @@ export const removeUndefined = (obj: Recordable) => {
   })
   return obj
 }
+
+/**
+ * 深拷贝
+ * @param obj 对象
+ * @returns {any} 深拷贝后的对象
+ */
+export const deepClone = (obj: any) => {
+  return JSON.parse(JSON.stringify(obj))
+}
