@@ -14,7 +14,7 @@ export default defineConfig({
     },
   },
   plugins: [
-    Vue({ script: { propsDestructure: true } }),
+    Vue(),
     VueJsx(),
     VueRouter({ exclude: ['**/components/**/*.vue'] }),
     ElementPlus({}),
