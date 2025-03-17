@@ -28,7 +28,7 @@ export default defineConfig({
         resolve(__dirname, 'packages/hooks.ts'),
       ],
       name: 'ZeroAdmin',
-      // fileName: (format, entryName) => `${entryName}.${format}.js`,
+      cssFileName: 'style',
     },
     rollupOptions: {
       treeshake: true,
