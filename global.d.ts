@@ -6,6 +6,8 @@ interface PromiseFn<T = any, R = T> {
   (...arg: T[]): Promise<R>
 }
 
+type Arrayable<T = any> = T[] | T
+
 type Nullable<T> = T | null
 
 type Recordable<T = any> = Record<string, T>

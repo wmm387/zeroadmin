@@ -1,6 +1,6 @@
 import type { ComputedRef } from 'vue'
 import type { ActionBtn, ActionBtnPopconfirm, TablePropsType } from '../types'
-import { isBoolean, isDef, isDefAndNotEmpty, isUnDef, toast } from '@pkg/utils'
+import { isBoolean, isDef, isEmpty, isUnDef, toast } from '@pkg/utils'
 import { assign } from 'lodash-es'
 import { computed, unref } from 'vue'
 
@@ -57,7 +57,7 @@ export function useAction(propsRef: ComputedRef<TablePropsType>) {
     }
     return actions.filter((action) => {
       const show = isUnDef(action.show) ? true : isBoolean(action.show) ? action.show : true
-      const auth = isDefAndNotEmpty(action.auth) && isDef(hasAuth) ? hasAuth(action.auth) : true
+      const auth = (isDef(hasAuth) && !isEmpty(action.auth)) ? hasAuth([...action.auth]) : true
       return auth && show
     }).map(action => {
       if (action.special) {

@@ -41,7 +41,7 @@ export interface ActionBtn {
   // 按钮文案
   text?: string
   // 显示权限
-  auth?: string[]
+  auth?: Arrayable<string>
   // 是否异步方法
   isAsync?: boolean
   // 请求后是否刷新,'after'(请求后刷新,isAsync为true时默认值),'error'(只在请求失败时刷新),false(不刷新,isAsync为false时默认值)

@@ -20,7 +20,7 @@ export function isObject(val: any): val is Record<any, any> {
 }
 
 /** 是否为空 */
-export function isEmpty<T = unknown>(val: T): val is T {
+export function isEmpty<T = unknown>(val: T): boolean {
   if (val === null || val === 'undefined') {
     return true
   }
