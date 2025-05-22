@@ -1,6 +1,6 @@
 import type { FormItemRule } from 'element-plus'
 import { trim } from 'lodash-es'
-import { isDef, isNumber } from './is'
+import { isDef, isEmpty, isNumber } from './is'
 
 /**
  * 是否必填
@@ -29,7 +29,7 @@ const isPhone = (required = true): FormItemRule => {
     required,
     validator: (rule: any, value: any, callback: any) => {
       const regexp = /^1+\d{10}$/
-      if (required && value === '') callback('必填')
+      if (required && isEmpty(value)) callback('必填')
       if (value && !regexp.test(value)) {
         return callback(new Error('请输入正确的手机号码'))
       } else {
