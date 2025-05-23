@@ -1,20 +1,17 @@
 import type { ComputedRef } from 'vue'
-import type { PaginationProps, TablePropsType } from '../types'
+import type { PaginationProps, SortColumn, TablePropsType } from '../types'
 import { isFunction, isPayload } from '@pkg/utils'
 import { get } from 'lodash-es'
 import { computed, reactive, ref, unref } from 'vue'
 import { defaultFetchSetting } from '../defaultData'
 
-interface ActionType {
-  setLoading: (boolean) => void
-  getPagination: ComputedRef<PaginationProps>
-  setPagination: (info: Partial<PaginationProps>) => void
-  getFieldsValue: () => Recordable
-}
-
 export function useFetchData(
   propsRef: ComputedRef<TablePropsType>,
-  { setLoading, getPagination, setPagination, getFieldsValue }: ActionType,
+  sortColumns: ComputedRef<SortColumn[]>,
+  setLoading: (boolean) => void,
+  getPagination: ComputedRef<PaginationProps>,
+  setPagination: (info: Partial<PaginationProps>) => void,
+  getFieldsValue: () => Recordable,
   emit: EmitType,
 ) {
   const fetchSetting = computed(() => {
@@ -31,6 +28,13 @@ export function useFetchData(
     if (isPayload(searchForm)) {
       fetchParams = searchForm
     }
+    sortColumns.value?.forEach(col => {
+      if (isPayload(col.sort.order)) {
+        fetchParams[col.sort.prop] = col.sort.order
+      } else {
+        delete fetchParams[col.sort.prop]
+      }
+    })
     const paginationInfo = unref(getPagination)
     if (paginationInfo) {
       fetchParams[fetchSetting.value.pageField] = paginationInfo.page ?? 1

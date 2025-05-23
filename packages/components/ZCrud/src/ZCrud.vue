@@ -21,8 +21,9 @@ import {
   usePagination,
   useRowSelection,
   useSearch,
+  useSortChange,
+  useSortColumns,
   useTableColumn,
-  useTableSort,
 } from './hooks'
 
 interface PropsType {
@@ -101,20 +102,8 @@ const {
   resetFields,
 } = useSearch(getProps)
 
-const { getPagination, setPagination } = usePagination(getProps)
-
-const { tableData, search, refresh } = useFetchData(
-  getProps,
-  {
-    setLoading,
-    getPagination,
-    setPagination,
-    getFieldsValue,
-  },
-  emit,
-)
-
 const { getHeaderActions, getColumnActions } = useAction(getProps)
+const { getPagination, setPagination } = usePagination(getProps)
 
 const {
   columnsRef,
@@ -124,13 +113,19 @@ const {
   toDefaultColumns,
 } = useTableColumn(getProps, getColumnActions, getPagination)
 
-const { sortColumns, sortChange } = useTableSort(
-  columnsRef,
-  setFieldsValue,
-  removeFieldsValue,
-  refresh,
+const sortColumns = useSortColumns(columnsRef)
+
+const { tableData, search, refresh } = useFetchData(
+  getProps,
+  sortColumns,
+  setLoading,
+  getPagination,
+  setPagination,
+  getFieldsValue,
   emit,
 )
+
+const sortChange = useSortChange(columnsRef, refresh, emit)
 
 const {
   selectedRowRef,
