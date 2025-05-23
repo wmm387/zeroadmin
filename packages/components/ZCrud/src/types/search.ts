@@ -15,6 +15,7 @@ export interface SearchColumn {
   slot?: string
   render?: (form?: any, item?: SearchColumn, row?: any, column?: any, index?: number) => any
   show?: boolean | ((column?: SearchColumn) => boolean)
+  minor?: boolean // 次要搜索项
   placeholder?: string
   component?: SearchColumnComponentType
   componentAttr?: any

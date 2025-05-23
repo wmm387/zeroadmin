@@ -16,15 +16,19 @@ const handleShow = (item: SearchColumn) => {
 }
 
 export function useSearch(propsRef: ComputedRef<TablePropsType>) {
-  const searchColumns = computed(() => {
-    return unref(propsRef.value.searchColumns)?.filter(item => handleShow(item))
+  const searchColumnList = computed(() => {
+    return unref(propsRef.value.searchColumns)?.filter(item => !item?.minor && handleShow(item))
+  })
+
+  const searchMinorColumnList = computed(() => {
+    return unref(propsRef.value.searchColumns)?.filter(item => item?.minor && handleShow(item))
   })
 
   const searchColumnDefaultOptions = computed(() => {
     return unref(propsRef.value.options.searchColumnDefaultOptions)
   })
 
-  const mountSearch = computed(() => searchColumns.value?.length)
+  const mountSearch = computed(() => searchColumnList.value?.length)
 
   const showSearch = ref(true)
   const toggleSearch = () => showSearch.value = !showSearch.value
@@ -48,7 +52,8 @@ export function useSearch(propsRef: ComputedRef<TablePropsType>) {
   const resetFields = () => searchRef.value?.resetFields()
 
   return {
-    searchColumns,
+    searchColumnList,
+    searchMinorColumnList,
     searchColumnDefaultOptions,
     mountSearch,
     showSearch,

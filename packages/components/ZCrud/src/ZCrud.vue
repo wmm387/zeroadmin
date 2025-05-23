@@ -87,7 +87,8 @@ const setLoading = val => {
 }
 
 const {
-  searchColumns: searchColumnList,
+  searchColumnList,
+  searchMinorColumnList,
   searchColumnDefaultOptions,
   mountSearch,
   showSearch,
@@ -185,6 +186,7 @@ defineExpose({ refresh, setLoading })
           <ZSearch
             ref="searchRef"
             :columns="searchColumnList"
+            :minor-columns="searchMinorColumnList"
             :inline-btn="getOptions.searchBtnInline"
             :default-options="searchColumnDefaultOptions"
             @search="search"

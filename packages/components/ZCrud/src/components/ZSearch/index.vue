@@ -10,6 +10,7 @@ import FormItemRender from './FormItemRender'
 const props = defineProps<{
   inlineBtn?: boolean
   columns: SearchColumn[]
+  minorColumns?: SearchColumn[]
   defaultOptions?: Partial<SearchColumn>
 }>()
 
@@ -35,8 +36,8 @@ const initFormData = (column: SearchColumn) => {
   }
 }
 
-const init = async () => {
-  props.columns.forEach(async column => {
+const handleInit = (columns?: SearchColumn[]) => {
+  columns?.forEach(async column => {
     column = defaultsDeep(column, props?.defaultOptions)
     if (!column?.component) {
       if (column?.options) {
@@ -53,6 +54,11 @@ const init = async () => {
       searchForm[column.fuzzyAttr.field] = column.fuzzyAttr.defaultValue ?? undefined
     }
   })
+}
+
+const init = async () => {
+  handleInit(props.columns)
+  handleInit(props.minorColumns)
 }
 
 init()
@@ -76,10 +82,17 @@ const getSearchForm = computed(() => {
   return form
 })
 
+const showMinor = ref(false)
+
+const toggleMinor = () => {
+  showMinor.value = !showMinor.value
+}
+
 // 搜索
 const search = () => {
   emit('search', getSearchForm.value)
 }
+
 // 重置搜索
 const reset = () => {
   formRef.value.resetFields()
@@ -130,6 +143,14 @@ defineExpose({
       :title="item.label"
       @search="search"
     />
+    <template v-for="(item, index) in minorColumns" :key="`key_minor_${index}_${item.prop}`">
+      <FormItemRender
+        v-show="showMinor"
+        :item="item"
+        :title="item.label"
+        @search="search"
+      />
+    </template>
     <div :class="inlineBtn ? 'inline-block' : 'block'">
       <ElFormItem label-width="0">
         <ElButton type="primary" :loading="loading" @click="search">
@@ -137,6 +158,15 @@ defineExpose({
         </ElButton>
         <ElButton :loading="loading" @click="reset">
           重置
+        </ElButton>
+        <ElButton
+          v-if="minorColumns.length"
+          type="primary"
+          link
+          @click="toggleMinor"
+        >
+          <div :class="showMinor ? 'i-carbon:chevron-up' : 'i-carbon:chevron-down'" />
+          {{ showMinor ? '收起' : '更多' }}
         </ElButton>
       </ElFormItem>
     </div>
