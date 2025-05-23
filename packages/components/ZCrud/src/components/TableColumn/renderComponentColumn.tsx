@@ -1,9 +1,10 @@
+import type { PropType } from 'vue'
 import type { Column } from '../../types/column'
 import { CopyText, TextColumn, TimeColumn } from '@pkg/components'
 import { isArray, isEmpty, isNullOrUnDef, time } from '@pkg/utils'
 import { ElButton, ElImage, ElProgress, ElTableColumn, ElTag } from 'element-plus'
 import { get } from 'lodash-es'
-import { defineComponent, type PropType } from 'vue'
+import { defineComponent } from 'vue'
 import columnHeaderSlot from './slotHeader'
 
 const RenderComponentColumn = defineComponent({
@@ -175,6 +176,7 @@ const RenderComponentColumn = defineComponent({
                         label={item?.label}
                         value={value || '--'}
                         copied={item?.copied}
+                        onClick={item?.click ? () => item?.click(row) : undefined}
                       />
                     )
                   })

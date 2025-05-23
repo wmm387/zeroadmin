@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useCopy } from '@pkg/hooks'
 import { ElTooltip } from 'element-plus'
-import { ref } from 'vue'
+import { computed, ref, useAttrs } from 'vue'
 
 interface PropsType {
   label?: string
@@ -10,6 +10,11 @@ interface PropsType {
 }
 
 defineProps<PropsType>()
+const attrs = useAttrs()
+
+const hasClick = computed(() => attrs?.onClick)
+
+const handleClick = () => (attrs.onClick as Fn)()
 
 const { copy } = useCopy()
 
@@ -50,6 +55,12 @@ const mouseleave = () => {
               cursor-pointer
               text-success
               @click="copy(value)"
+            >{{ value }}</span>
+            <span
+              v-else-if="hasClick"
+              cursor-pointer
+              text-primary
+              @click="handleClick"
             >{{ value }}</span>
             <span v-else>{{ value }}</span>
           </template>
