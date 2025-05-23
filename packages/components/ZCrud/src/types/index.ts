@@ -120,6 +120,8 @@ export interface Options {
   editColumnSubmit?: {
     api?: PromiseFn
     fn?: (row: Recordable, column: Column, value: any) => any | Promise<any>
+    // 更新后是否刷新,'after'(请求后刷新),'error'(请求失败时刷新,默认值),false(不刷新)
+    doRefresh?: 'after' | 'error' | false
   }
   // 鉴权方法
   hasAuth?: Fn<string[], boolean>

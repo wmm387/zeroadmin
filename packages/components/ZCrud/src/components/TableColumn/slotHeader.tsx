@@ -1,5 +1,6 @@
 import type { Column } from '../../types'
 import { TextTooltip } from '@pkg/components'
+import { isFunction } from '@pkg/utils'
 import { ElTooltip } from 'element-plus'
 import { h, inject } from 'vue'
 
@@ -27,46 +28,39 @@ TableSlotHeader.props = {
 }
 
 const renderHeader = (column: Column) => {
+  let showEdit = false
+  if (isFunction(column.edit?.show)) {
+    showEdit = column.edit.show.length === 0 ? column.edit.show() : true
+  } else {
+    showEdit = column.edit?.show
+  }
+
   if (column?.header?.showOverflowTooltip === false) {
     return (
-      <span>
-        {column.label}
-        {
-          (column.edit || column?.header?.edit)
-            ? (<div class="i-ep-edit ml-1 inline h-4 w-4 !text-primary" />)
-            : null
-        }
-      </span>
+      <div class="flex-cc">
+        {showEdit ? <div class="i-ep-edit mr-1 size-4 !text-primary" /> : null}
+        <span>{column.label}</span>
+      </div>
     )
   } else {
-    const slots = {} as { prefix: any, extend: any }
-    if (column?.edit || column?.header?.edit || column?.header?.tooltip) {
-      slots.prefix = () => {
-        return (
-          <div>
-            {
-              (column.edit || column?.header?.edit)
-                ? (<div class="i-ep-edit h-4 w-4 !text-primary" />)
-                : null
-            }
-            {
-              column.header?.tooltip
-                ? (
-                    <ElTooltip content={column.header.tooltip} placement="top">
-                      <div class="i-ep-info-filled h-4 w-4 text-info" />
-                    </ElTooltip>
-                  )
-                : null
-            }
-          </div>
-        )
-      }
-    }
     return (
       <div style={{ maxWidth: column.sortable ? 'calc(100% - 24px)' : '100%' }}>
         <TextTooltip
           content={column.label}
-          v-slots={slots}
+          v-slots={{
+            prefix: () => {
+              return showEdit ? <div class="i-ep-edit inline size-4 !text-primary" /> : null
+            },
+            extend: () => {
+              return column.header?.tooltip
+                ? (
+                    <ElTooltip content={column.header.tooltip} placement="top">
+                      <div class="i-ep-info-filled size-4 text-info" />
+                    </ElTooltip>
+                  )
+                : null
+            },
+          }}
         />
       </div>
     )

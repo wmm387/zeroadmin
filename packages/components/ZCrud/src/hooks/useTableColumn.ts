@@ -1,6 +1,6 @@
 import type { ComputedRef, Ref } from 'vue'
 import type { Column, PaginationProps, TablePropsType } from '../types'
-import { isDef, isFunction, isObject, storageLocal } from '@pkg/utils'
+import { isDef, isFunction, isObject, isUnDef, storageLocal } from '@pkg/utils'
 import { cloneDeep, sortBy } from 'lodash-es'
 import { computed, ref, unref, watch } from 'vue'
 import { defaultOperationColumn } from '../defaultData'
@@ -49,8 +49,16 @@ export function useTableColumn(
 
   // 处理可编辑列
   const handleEditColumn = (column: Column) => {
-    if (isDef(column.edit.updateFn)) return
-    column.edit.updateFn = editColumnSubmitFn()
+    if (isUnDef(column.edit?.show)) {
+      column.edit.show = true
+    }
+    if (isUnDef(column.edit?.updateFn)) {
+      column.edit.updateFn = editColumnSubmitFn()
+    }
+    if (isUnDef(column.edit?.doRefresh)) {
+      const { editColumnSubmit } = unref(propsRef.value.options)
+      column.edit.doRefresh = editColumnSubmit?.doRefresh ?? 'error'
+    }
   }
 
   const getColumns = computed(() => {

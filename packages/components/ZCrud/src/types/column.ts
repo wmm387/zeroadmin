@@ -2,7 +2,7 @@ import type { FormItemRule } from 'element-plus'
 import type { TableColumnComponentType, TableColumnEditComponentType } from './component'
 
 export interface EditColumnType {
-  show?: boolean
+  show?: boolean | ((row?: Recordable) => boolean)
   always?: boolean
   disabled?: boolean | Fn<any, boolean>
   required?: boolean
@@ -10,6 +10,8 @@ export interface EditColumnType {
   component: TableColumnEditComponentType
   componentAttr?: any
   updateFn?: (row: Recordable, column: Column, value: any) => any | Promise<any>
+  // 更新后是否刷新,'after'(请求后刷新),'error'(请求失败时刷新,默认值),false(不刷新)
+  doRefresh?: 'after' | 'error' | false
 }
 
 interface PropColumn {
@@ -79,7 +81,6 @@ interface BaseColumn {
     slot?: string
     render?: any
     align?: 'left' | 'center' | 'right'
-    edit?: boolean
     tooltip?: string
     showOverflowTooltip?: boolean
     formatter?: (row?, column?, cellValue?, index?) => string
@@ -87,6 +88,7 @@ interface BaseColumn {
   // 拖拽排序
   _sort?: number
   edit?: EditColumnType
+  className?: string
 }
 
 export interface SortColumn extends BaseColumn {

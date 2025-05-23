@@ -79,6 +79,14 @@ const getCompAttr = () => {
   return Object.assign({}, attrs, column.edit?.componentAttr)
 }
 
+const showEdit = computed(() => {
+  if (isFunction(column.edit?.show)) {
+    return column.edit.show(row)
+  } else {
+    return column.edit?.show
+  }
+})
+
 const editDisabled = computed(() => {
   if (isFunction(column.edit?.disabled)) {
     return column.edit.disabled(row)
@@ -124,12 +132,14 @@ const submit = async () => {
         toast.success('操作成功')
       }
     }
-    isEdit.value = false
   } catch (err) {
-    emit('refresh')
+    modelValue.value = cloneDeep(unref(oldVal.value))
+    column.edit?.doRefresh === 'error' && emit('refresh')
     console.error('🚀 ~ file: ZEditableCell.vue ~ submit ~ err:', err)
   } finally {
+    isEdit.value = false
     loading.value = false
+    column.edit?.doRefresh === 'after' && emit('refresh')
   }
 }
 
@@ -203,6 +213,7 @@ const cancel = () => {
       {{ modelValueFormatter() }}
     </div>
     <ElButton
+      v-if="showEdit"
       link
       ml-1
       :disabled="editDisabled"
