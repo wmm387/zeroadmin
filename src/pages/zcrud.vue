@@ -3,7 +3,7 @@ import { demoApi } from '@/api'
 import { ZCrud } from '@pkg/components'
 import { useZCrud } from '@pkg/index'
 import { ElRule, option2Map, toast } from '@pkg/utils'
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
 
 const options = [
   { label: 'PC', value: 1 },
