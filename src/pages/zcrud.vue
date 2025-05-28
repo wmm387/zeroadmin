@@ -47,14 +47,20 @@ const [register] = useZCrud(
         options: 'onOrOff',
       },
       {
-        label: '性别',
-        prop: 'gender',
-        options: getGenderList,
-      },
-      {
         label: '创建时间',
         prop: 'times',
         component: 'dateRange',
+      },
+      {
+        label: '性别',
+        prop: 'gender',
+        options: getGenderList,
+        minor: true,
+      },
+      {
+        label: '排序',
+        prop: 'sort',
+        minor: true,
       },
     ],
     columns: [
@@ -85,7 +91,6 @@ const [register] = useZCrud(
       {
         label: '地址',
         prop: 'address',
-        show: () => false,
         component: 'copyText',
         minWidth: 180,
       },
@@ -98,21 +103,21 @@ const [register] = useZCrud(
       {
         label: '热门',
         prop: 'is_hot',
-        component: 'button',
-        click: () => toast.success('123'),
+        component: 'yesOrNoTag',
         width: 100,
       },
       {
         label: '进度',
         prop: 'progress',
         component: 'progress',
-        minWidth: 150,
+        sort: true,
+        minWidth: 160,
       },
       {
         label: '生日',
         prop: 'birthday',
+        sort: { prop: 'birthday_sort', default: 'desc' },
         width: 120,
-        sort: { default: 'asc' },
       },
       {
         label: '渠道',
@@ -122,16 +127,17 @@ const [register] = useZCrud(
           component: 'select',
           componentAttr: { options },
         },
-        width: 120,
+        width: 150,
       },
       {
         label: '排序',
         prop: 'sort',
         edit: {
+          show: row => row.id !== 1,
           component: 'numberInput',
           rules: ElRule.isPositiveInt(true),
         },
-        width: 120,
+        width: 150,
       },
       {
         label: '状态',

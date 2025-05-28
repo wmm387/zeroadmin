@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { DescriptionItem } from '@pkg/index'
-import { Descriptions, Pagination } from '@pkg/components'
+import { DatePicker } from '@pkg/components'
+import { ElButton } from 'element-plus'
 import { ref } from 'vue'
 
 const currentItem = ref({
@@ -14,6 +14,7 @@ const currentItem = ref({
   trueFalseSelect: 1,
   trueFalseSwitch: false,
   dates: ['2024-03-20 00:00:00', '2024-03-22 23:59:59'],
+  date: '',
 })
 
 const options = [
@@ -27,30 +28,9 @@ const platformList = [
   { value: 'ios', label: 'iOS' },
 ]
 
-const descData: DescriptionItem[] = [
-  {
-    label: '名称',
-    value: '测试',
-  },
-  {
-    label: '类型',
-    value: '测试',
-  },
-  {
-    label: '状态',
-    value: '测试',
-  },
-  {
-    label: '创建时间',
-    value: '测试',
-    span: 2,
-  },
-  {
-    label: '创建时间',
-    value: '测试',
-    slot: 'tags',
-  },
-]
+const logValue = () => {
+  console.log(currentItem.value)
+}
 </script>
 
 <template>
@@ -60,7 +40,6 @@ const descData: DescriptionItem[] = [
     flexc-cc
     space-y-4
   >
-    <Pagination :total="100" />
     <Checkbox v-model="currentItem.checkboxList" :options="options" button />
     <Radio v-model="currentItem.radio" :options="platformList" button />
     <Select v-model="currentItem.select" :options="options" w="!220px" />
@@ -69,22 +48,10 @@ const descData: DescriptionItem[] = [
     <TagInput v-model:tags="currentItem.tags" />
     <TrueFalseSelect v-model="currentItem.trueFalseSelect" on-off w="!220px" />
     <TrueFalseSwitch v-model="currentItem.trueFalseSwitch" boolean-value />
-
-    <CopyText content="https://cck-pms.oss-cn-shanghai.aliyuncs.com/certs/20240829/1724897558444_66cfd9166c59d.crt" />
-    <!-- <TextTooltip content="https://cck-pms.oss-cn-shanghai.aliyuncs.com/certs/20240829/1724897558444_66cfd9166c59d.crt" />
-    <TextTooltipV2 content="https://cck-pms.oss-cn-shanghai.aliyuncs.com/certs/20240829/1724897558444_66cfd9166c59d.crt" />
-    <TextTooltip content="省略号可以用于引文的省略，列举的省略，说话断断续续，也可以用于表示节省原文或语句未完、意思未尽等" />
-    <TextTooltipV2 content="省略号可以用于引文的省略，列举的省略，说话断断续续，也可以用于表示节省原文或语句未完、意思未尽等" ellipsis-position="start" /> -->
     <DateRangePicker v-model="currentItem.dates" />
-    <Descriptions
-      :column="3"
-      :data="descData"
-      w-xl
-      title="Title"
-    >
-      <template #extra>
-        <span>额外</span>
-      </template>
-    </Descriptions>
+    <DatePicker v-model="currentItem.date" />
+    <ElButton type="primary" @click="logValue">
+      获取
+    </ElButton>
   </div>
 </template>
