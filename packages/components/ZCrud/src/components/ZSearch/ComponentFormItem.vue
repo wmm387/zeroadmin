@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { SearchColumn } from '../../types'
-import { DateRangePicker, FuzzyOrMatchInput, Select } from '@pkg/components'
+import { DatePicker, DateRangePicker, FuzzyOrMatchInput, Select } from '@pkg/components'
 import { isFunction, isString } from '@pkg/utils'
 import { ElInput } from 'element-plus'
 import { inject, ref, unref, watch } from 'vue'
@@ -23,6 +23,8 @@ const getCompAttr = () => {
     attrs.filterable = true
     attrs.clearable = true
     attrs.options = []
+  } else if (item.component === 'date') {
+    attrs.placeholder = item.placeholder ?? `请选择${item.label}`
   }
   return Object.assign({}, attrs, item?.componentAttr)
 }
@@ -68,6 +70,9 @@ watch(
       :loading="selectLoading"
       :options="selectOptions"
     />
+  </template>
+  <template v-else-if="item.component === 'date'">
+    <DatePicker v-model="searchForm[item.prop]" v-bind="getCompAttr()" />
   </template>
   <template v-else-if="item.component === 'dateRange'">
     <DateRangePicker v-model="searchForm[item.prop]" v-bind="getCompAttr()" />

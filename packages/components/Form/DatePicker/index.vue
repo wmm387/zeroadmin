@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import type { DatePickerInstance } from 'element-plus'
 import { useBreakpoint } from '@pkg/hooks'
 import { ElDatePicker } from 'element-plus'
-import { computed, nextTick, onMounted, ref } from 'vue'
+import { computed } from 'vue'
 
 interface Props {
   type?: 'year' | 'years' | 'month' | 'months' | 'date' | 'dates' | 'datetime' | 'week' | 'datetimerange' | 'daterange' | 'monthrange' | 'yearrange'
@@ -14,8 +13,6 @@ interface Props {
   editable?: boolean
   shortcuts?: Array<{ text: string, value: Date | Fn }>
   popperClass?: string
-  withTime?: boolean
-  defaultShortcuts?: boolean
 }
 
 const {
@@ -82,17 +79,10 @@ const getAttr = (): Props => {
   }
   return attr
 }
-
-const pickerRef = ref<DatePickerInstance>()
 </script>
 
 <template>
-  <ElDatePicker
-    ref="pickerRef"
-    v-model="modelValue"
-    class="z-date-picker"
-    v-bind="getAttr()"
-  />
+  <ElDatePicker v-model="modelValue" class="z-date-picker" v-bind="getAttr()" />
 </template>
 
 <style lang="scss">

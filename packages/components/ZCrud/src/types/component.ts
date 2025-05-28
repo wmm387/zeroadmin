@@ -1,6 +1,7 @@
 export type SearchColumnComponentType =
   | 'input'
   | 'select'
+  | 'date'
   | 'dateRange'
   | 'fuzzyInput'
 
