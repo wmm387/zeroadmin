@@ -1,6 +1,6 @@
 import Checkbox from './Checkbox/index.vue'
+import DatePicker from './DatePicker/index.vue'
 import DateRangePicker from './DateRangePicker/index.vue'
-import DateRangePickerWithQuick from './DateRangePickerWithQuick/index.vue'
 import EmojiPicker from './EmojiPicker/index.vue'
 import FuzzyOrMatchInput from './FuzzyOrMatchInput/index.vue'
 import NumberInput from './NumberInput/index.vue'
@@ -12,8 +12,8 @@ import TrueFalseSwitch from './TrueFalseSwitch/index.vue'
 
 export {
   Checkbox,
+  DatePicker,
   DateRangePicker,
-  DateRangePickerWithQuick,
   EmojiPicker,
   FuzzyOrMatchInput,
   NumberInput,

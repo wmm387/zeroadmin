@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import type { DateModelType } from 'element-plus'
 import type { Ref } from 'vue'
 import { useBreakpoint } from '@pkg/hooks'
 import { dateUtil, yesterday } from '@pkg/utils'
-import { type DateModelType, ElDatePicker } from 'element-plus'
+import { ElDatePicker } from 'element-plus'
 
 const { withTime = true } = defineProps<{ withTime?: boolean }>()
 
