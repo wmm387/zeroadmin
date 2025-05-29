@@ -21,7 +21,7 @@ export function isObject(val: any): val is Record<any, any> {
 
 /** 是否为空 */
 export function isEmpty<T = unknown>(val: T): boolean {
-  if (val === null || val === 'undefined') {
+  if (val === null || typeof val === 'undefined') {
     return true
   }
 

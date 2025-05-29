@@ -57,9 +57,7 @@ export function useAction(propsRef: ComputedRef<TablePropsType>) {
     }
     return actions.filter((action) => {
       const show = isUnDef(action.show) ? true : isBoolean(action.show) ? action.show : true
-      const auth = (isDef(hasAuth) && !isEmpty(action.auth))
-        ? hasAuth(isArray(action.auth) ? action.auth : [action.auth])
-        : true
+      const auth = (isDef(hasAuth) && !isEmpty(action.auth)) ? hasAuth([...action.auth]) : true
       return auth && show
     }).map(action => {
       if (action.special) {
