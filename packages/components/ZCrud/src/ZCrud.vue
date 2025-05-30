@@ -192,18 +192,18 @@ defineExpose({ refresh, setLoading })
               #[slot]="{ form, item }"
             >
               <slot
-                :name="`__search_${slot}`"
+                :name="`search_${slot}`"
                 v-bind="{ form, item } as SlotType"
               />
             </template>
           </ZSearch>
         </div>
       </ElCollapseTransition>
-      <slot name="__before_table" />
+      <slot name="before_table" />
       <div class="mb-3 flex-bc">
         <div class="flex-cc">
-          <slot name="__before_table_header_action" />
-          <slot name="__table_header_action">
+          <slot name="before_table_header_action" />
+          <slot name="table_header_action">
             <ZActionButton
               v-for="(act, index) in getHeaderActions"
               :key="`key_${act.position}_${index}_${act.text}`"
@@ -212,13 +212,13 @@ defineExpose({ refresh, setLoading })
               @set-loading="setLoading"
             />
           </slot>
-          <slot name="__after_table_header_action" />
+          <slot name="after_table_header_action" />
           <div v-if="selectedRowRef.length" class="ml-3 text-sm text-placeholder">
             已选择 {{ selectedRowRef.length }} 项数据
           </div>
         </div>
         <div class="flex-cc">
-          <slot name="__before_table_header_setting" />
+          <slot name="before_table_header_setting" />
           <SortDropdown v-if="sortColumns?.length" :columns="sortColumns" @change="sortChange" />
           <ElTooltip content="刷新表格" placement="top">
             <div class="ml-5 cursor-pointer text-info" @click="refresh">
@@ -239,7 +239,7 @@ defineExpose({ refresh, setLoading })
               <div i-carbon-settings />
             </div>
           </ElTooltip>
-          <slot name="__after_table_header_setting" />
+          <slot name="after_table_header_setting" />
         </div>
       </div>
       <ElTable
@@ -281,7 +281,7 @@ defineExpose({ refresh, setLoading })
         >
           <template #default="{ row, column, $index }">
             <slot
-              name="__operation_column"
+              name="operation_column"
               v-bind="{ row, column, index: $index } as SlotType"
             >
               <ZActionButton
@@ -296,7 +296,7 @@ defineExpose({ refresh, setLoading })
           </template>
         </ElTableColumn>
       </ElTable>
-      <slot name="__after_table" />
+      <slot name="after_table" />
       <Pagination
         v-if="getPagination"
         :page="getPagination.page"
