@@ -48,7 +48,6 @@ const quickTimeList = {
     dateUtil().subtract(1, 'month').startOf('month').format(startTimeFormat),
     dateUtil().subtract(1, 'month').endOf('month').format(endTimeFormat),
   ],
-  all: ['', ''],
 }
 
 const timeShortcuts = [
@@ -60,7 +59,6 @@ const timeShortcuts = [
   { text: '上周', key: 'lastWeek', value: quickTimeList.lastWeek },
   { text: '本月', key: 'month', value: quickTimeList.month },
   { text: '上月', key: 'lastMonth', value: quickTimeList.lastMonth },
-  { text: '全部', key: 'all', value: quickTimeList.all },
 ]
 
 const { smallerThanSm } = useBreakpoint()
