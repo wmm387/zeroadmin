@@ -48,6 +48,6 @@ const getStyle = () => {
     :active-value="activeValue"
     :inactive-value="inactiveValue"
     :style="getStyle()"
-    @change="$emit('change')"
+    @change="$emit('change', $event)"
   />
 </template>

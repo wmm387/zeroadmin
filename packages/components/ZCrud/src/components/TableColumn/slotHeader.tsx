@@ -10,8 +10,8 @@ const TableSlotHeader = props => {
   return h(
     'span',
     {},
-    ZCrudSlot?.[props.column.slotHeader]
-      ? ZCrudSlot?.[props.column.slotHeader]({ column: props.column, scope: props.scope })
+    ZCrudSlot?.[props.column.header.slot]
+      ? ZCrudSlot?.[props.column.header.slot]({ column: props.column, scope: props.scope })
       : null,
   )
 }

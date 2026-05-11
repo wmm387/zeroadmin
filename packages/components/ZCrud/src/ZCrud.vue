@@ -54,10 +54,10 @@ const tableRef = ref<TableInstance>()
 const ZCrudSlot = useSlots()
 provide('ZCrudSlot', ZCrudSlot)
 
-const innerPropsRef = ref<Partial<Options>>()
+const innerPropsRef = ref<Partial<TablePropsType>>()
 
-const getProps = computed(() => {
-  return { ...props, ...unref(innerPropsRef) } as TablePropsType
+const getProps = computed<TablePropsType>(() => {
+  return { ...props, ...unref(innerPropsRef) }
 })
 
 const setProps = (props: Partial<TablePropsType>) => {
